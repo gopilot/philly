@@ -7,10 +7,10 @@ var fs = require('fs');
 
 var deploy = require("gulp-gh-pages");
 
-var gitRemoteUrl = "git@github.com:gopilot/event-base.git"
+var gitRemoteUrl = "git@github.com:gopilot/pdx.git"
 
 gulp.task('deploy', function () {
-    gulp.src("./out/**/*")
+    return gulp.src("./out/**/*")
         .pipe(deploy(gitRemoteUrl));
 });
 
@@ -39,7 +39,7 @@ gulp.task('default', function(){
 // copy over everything from the static folder (images, etc)
 // NOTE: into the root of the out folder
 gulp.task('static', function(){
-    gulp.src('./static/**')
+    return gulp.src('./static/**')
         .pipe(gulp.dest('./out'));
 
 });
