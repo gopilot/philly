@@ -10,7 +10,7 @@ html
   body
     .background
 
-    .row.align-corners
+    .section.align-corners
         .box.left.blue.span-7
             h1.pilot-logo=title
             .typ-larger
@@ -21,7 +21,7 @@ html
             p “I came to this event not knowing what to expect. By the end I had a new group of friends and an end product that I never thought possible, let alone able to be done in just a few hours.” 
             p.typ-small HackMITxPilot attendee
 
-    ul.row.info-list.border-above
+    ul.section.info-list.border-above
         li
             h6 When
             p= date.display
@@ -34,7 +34,7 @@ html
             h6 Cost
             p Free!
 
-    .row
+    .section
         .box.copy.left.white.span-12
             .typ-large
                 p When you come to Pilot, you’ll work in a team of 4 students to brainstorm an idea, bring it to life, and then demo and pitch it for a chance to win prizes and awards. All in just #{hours_long} hours.
@@ -46,9 +46,20 @@ html
 
             p Through this process students learn how to think creatively, pitch and demo their projects, and more technical skills like how to code and design. Most importantly, they learn how to learn.
 
+    .section.schedule.large
+        .box.title.blue.span-3
+            h4 Schedule
+
+        each description, time in schedule
+            .row
+                .box.span-3.typ-right
+                   h6= time
+                .box.span-9= description
 
 
-    .row.align-corners.faq
+
+
+    .section.align-corners.faq
         .box.title.left.blue.span-3
             h4 FAQ
         .box.copy.slate.span-9

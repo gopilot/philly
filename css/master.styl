@@ -110,6 +110,8 @@ hr
     text-align: left
     margin 1rem 0px
 
+.typ-right
+    text-align right
 
 .background
     position fixed
@@ -154,7 +156,7 @@ hr
         border-radius: 28px
 
 
-.row
+.section
     clear both
     max-width 1280px
     margin 50px 0 100px 0
@@ -164,10 +166,23 @@ hr
         margin-top 150px
 
 
+.row
+    [class*="span-"]
+        display inline-block
+
+.list
+    font-size: sizes.larger
+
+    .row
+        .box
+            padding: 10px 20px
+
+
 .box
     padding 20px
     // background colors
     box-sizing border-box
+    color white
 
     &.title
         text-align right
@@ -220,7 +235,11 @@ hr
     text-indent: -400px
     margin-top 20px
 
+/* Section specific styles/map sections to types above */
 
 .faq
     h5 + p
         margin-top .5em
+
+.schedule
+    @extends .list

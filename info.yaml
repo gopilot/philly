@@ -6,3 +6,13 @@ location:
     name: Jesuit High School
 register_link: http://pilotpdx.eventbrite.com
 hours_long: 12
+schedule:
+    8:30am: Doors Open
+    9:30am: Check-in Closes; Kickoff ceremony
+    12:00pm: Lunch
+    3:00pm: Afternoon snack
+    6:00pm: Dinner
+    7:00pm: Project work ends, judging begins
+    8:00pm: Closing ceremy & awards
+    9:00pm: End of PilotPDX
+    9:30pm: All attendees must be signed out

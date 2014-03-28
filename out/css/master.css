@@ -319,6 +319,9 @@ hr {
   text-align: left;
   margin: 1rem 0px;
 }
+.typ-right {
+  text-align: right;
+}
 .background {
   position: fixed;
   top: 0;
@@ -369,20 +372,32 @@ hr {
   -webkit-border-radius: 28px;
   border-radius: 28px;
 }
-.row {
+.section {
   clear: both;
   max-width: 1280px;
   margin: 50px 0 100px 0;
   margin-right: 50px;
 }
-.row.space-above {
+.section.space-above {
   margin-top: 150px;
+}
+.row [class*="span-"] {
+  display: inline-block;
+}
+.list,
+.schedule {
+  font-size: 31px;
+}
+.list .row .box,
+.schedule .row .box {
+  padding: 10px 20px;
 }
 .box {
   padding: 20px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  color: #fff;
 }
 .box.title {
   text-align: right;
@@ -439,6 +454,7 @@ hr {
   text-indent: -400px;
   margin-top: 20px;
 }
+/* Section specific styles/map sections to types above */
 .faq h5 + p {
   margin-top: 0.5em;
 }
