@@ -6,6 +6,20 @@ var jsyaml = require('js-yaml');
 var fs = require('fs');
 
 var deploy = require("gulp-gh-pages");
+var static = require('node-static');
+
+//
+// Create a node-static server instance to serve the './public' folder
+//
+var file = new static.Server('./out');
+
+function runServer() {
+    require('http').createServer(function (request, response) {
+        request.addListener('end', function () {
+            file.serve(request, response);
+        }).resume();
+    }).listen(8000);
+}
 
 var gitRemoteUrl = "git@github.com:gopilot/pdx.git"
 
@@ -45,8 +59,9 @@ gulp.task('static', function(){
 });
 
 gulp.task('watch', function() {
-  gulp.watch('./static/**', ['static']);
-  gulp.watch('./css/*.styl', ['stylus']);
-  gulp.watch(['./*.jade', './components/*.jade', './info.yaml'], ['html']);
+    runServer();
+    gulp.watch('./static/**', ['static']);
+    gulp.watch('./css/*.styl', ['stylus']);
+    gulp.watch(['./*.jade', './components/*.jade', './info.yaml'], ['html']);
 });
 
