@@ -1,0 +1,22 @@
+@media (max-width: 900px) 
+    html
+        font-size 14px
+
+    for cols in (1..numcols)
+        .span-{cols}
+            position relative
+            width (cols/numcols) * 100%
+            .align-corners & + [class*="span-"]
+                margin-left (cols/numcols) * 100%
+                &.mobile-full
+                    width 100%
+                    margin-left 0
+
+            &.mobile-full
+                width 100%
+                margin-left 0
+
+    .box
+        &.title
+            width 100%
+            text-align left
