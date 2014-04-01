@@ -359,6 +359,7 @@ hr {
   background: rgba(0,0,0,0.2);
   color: #fff;
   padding: 8px 18px;
+  display: inline-block;
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
   -o-transition: all 0.2s;
@@ -373,6 +374,13 @@ hr {
   font-size: 1.5rem;
   -webkit-border-radius: 28px;
   border-radius: 28px;
+}
+.action_link {
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255,255,255,0.3);
+}
+.action_link:hover {
+  border-bottom-color: #fff;
 }
 .section {
   clear: both;
@@ -456,6 +464,9 @@ hr {
 /* Section specific styles/map sections to types above */
 .faq h5 + p {
   margin-top: 0.5rem;
+}
+.header a.button {
+  margin: 10px 0;
 }
 @media (max-width: 900px) {
   html {

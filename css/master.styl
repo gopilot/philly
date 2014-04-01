@@ -148,6 +148,7 @@ hr
     background: rgba(black, .2)
     color: white
     padding 8px 18px
+    display: inline-block
 
     transition: all .2s
 
@@ -159,6 +160,12 @@ hr
         font-size: sizes.large
         border-radius: 28px
 
+.action_link
+    text-transform uppercase
+    border-bottom 1px solid rgba(white, .3)
+    &:hover
+        border-bottom-color white
+    
 
 .section
     clear both
@@ -245,6 +252,10 @@ hr
 
 .schedule
     @extends .list
+
+.header
+    a.button
+        margin 10px 0
 
 
 @import _mq
