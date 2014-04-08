@@ -6,8 +6,8 @@
   "dependencies": {
     "gulp": "~3.5.5",
     "gulp-jade": "~0.4.2",
-    "gulp-stylus": "~0.0.13"
-    "node-static": "~0.7.3"
+    "gulp-stylus": "~0.0.13",
+    "node-static": "~0.7.3",
     "js-yaml": "~3.0.2"
   },
   "devDependencies": {
