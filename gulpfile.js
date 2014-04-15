@@ -30,7 +30,10 @@ gulp.task('deploy', function () {
 
 // compile css
 gulp.task('stylus', function () {
-    return gulp.src('./css/master.styl')
+    gulp.src('./css/master.styl')
+        .pipe(stylus({use: ['nib']}))
+        .pipe(gulp.dest('./out/css'));
+    gulp.src('./css/confirmation.styl')
         .pipe(stylus({use: ['nib']}))
         .pipe(gulp.dest('./out/css'));
 });
@@ -38,7 +41,12 @@ gulp.task('stylus', function () {
 // compile our HTML
 gulp.task('html', function() {
     var locals = jsyaml.load(fs.readFileSync('./info.yaml', 'utf8')); // load yaml
-    return gulp.src('./index.jade')
+    gulp.src('./index.jade')
+        .pipe(jade({
+            locals: locals
+        }))
+        .pipe(gulp.dest('./out'));
+    gulp.src('./confirmation.jade')
         .pipe(jade({
             locals: locals
         }))

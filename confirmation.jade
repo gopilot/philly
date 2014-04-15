@@ -1,4 +1,4 @@
-!!!
+doctype
 html(style="width: 100%; height: 100%;")
     head
         meta(charset='utf8')
@@ -14,7 +14,7 @@ html(style="width: 100%; height: 100%;")
 
         title="Registration Complete!"
 
-        link(rel='stylesheet', href='/css/font-awesome/css/font-awesome.css')
+        link(rel='stylesheet', href='/lib/font-awesome/css/font-awesome.css')
         link(rel='stylesheet', href='/css/confirmation.css')
         script.
             var fb_param = {};
@@ -32,7 +32,7 @@ html(style="width: 100%; height: 100%;")
             img(height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/offsite_event.php?id=6012903874317&amp;value=0.01&amp;currency=USD")
     body
         div.wrap.full
-            h2.center.serif#title We'll see you at #{document.title}!
+            h2.center.serif#title We'll see you at #{title}!
             h4.center.sans-serif Keep your eyes out for emails from us!
             ol#actions 
                 span.serif#list-title What now?
@@ -43,7 +43,7 @@ html(style="width: 100%; height: 100%;")
                 //-         span.button-text Print waivers >
                 li Join the Facebook event to see who else is going!
                 div.button-container
-                    a(class="button button-large" id="eventButton" target="_blank" href="https://www.facebook.com/events/1463530917197699/")
+                    a(class="button button-large" id="eventButton" target="_blank" href=facebook_event)
                         i.fa.fa-calendar
                         span.button-text Facebook Event >
                 li Follow us to get updates!
@@ -59,9 +59,9 @@ html(style="width: 100%; height: 100%;")
                         span.button-text GrabTheYoke
                 li Invite your friends!
                 div.button-container
-                    a(href="https://twitter.com/share?url="+encodeURIComponent("http://pdx.gopilot.org")+"&text="+encodeURIComponent("I'm going to #PilotPDX on April 26! You should join me: ") class="button button-small" id="tweet" target="_blank")
-                        i(class="fa fa-twitter")
-                        span(class="button-text") Tweet             
-                    a(href="https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent("http://pdx.gopilot.org") class="button button-small" id="share" target="_blank")
+                    a(href="https://twitter.com/share?url="+encodeURIComponent(share_url)+"&text="+encodeURIComponent(tweet_text) class="button button-small" id="tweet" target="_blank")
+                        i.fa.fa-twitter
+                        span.button-text Tweet           
+                    a(href="https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(share_url) class="button button-small" id="share" target="_blank")
                         i.fa.fa-facebook
                         span.button-text Share
