@@ -472,18 +472,23 @@ hr {
 .header a.button {
   margin: 10px 0;
 }
+.sponsors .sponsors-row {
+  margin-bottom: 1%;
+}
+.sponsors .sponsors-row:last-child {
+  margin-bottom: 0;
+}
 .sponsors .sponsors-row >div {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  padding: 20px;
-  max-height: 300px;
+  padding: 40px;
   display: inline-block;
   text-align: center;
 }
 .sponsors .sponsors-row >div img {
-  max-height: 300px;
   width: 90%;
+  height: auto;
 }
 @media (max-width: 900px) {
   html {
