@@ -9,7 +9,7 @@
         .span-{cols}
             position relative
             width (cols/numcols) * 100%
-            .align-corners & + [class*="span-"]
+            .align-corners > & + [class*="span-"]
                 margin-left (cols/numcols) * 100%
                 &.mobile-full
                     width 100%
@@ -19,11 +19,15 @@
                 width 100%
                 margin-left 0
 
-    [class*='span-']
-        [class*='span-']
-            width 100%
-
     .box
         &.title
             width 100%
             text-align left
+
+
+    // set up the grid
+    numcols = 12
+    for cols in (1..numcols)
+        .mobile-{cols}
+            position relative
+            width (cols/numcols) * 100% !important

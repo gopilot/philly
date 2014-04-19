@@ -45,7 +45,7 @@ for cols in (1..numcols)
     .span-{cols}
         position relative
         width (cols/numcols) * 100%
-        .align-corners & + [class*="span-"]
+        .align-corners > & + [class*="span-"]
             margin-left (cols/numcols) * 100%
 
 // TODO create separate settings file
@@ -82,6 +82,10 @@ body
 
 p
     margin 1rem 0
+
+img
+    display inline-block
+    width 100%
 
 em
     font-weight 400
@@ -256,6 +260,18 @@ hr
 .header
     a.button
         margin 10px 0
+
+.sponsors
+    .sponsors-row
+        >div
+            box-sizing border-box
+            padding 20px
+            max-height 300px
+            display inline-block
+            text-align center
+            img
+                max-height 300px
+                width 90%
 
 
 @import _mq
