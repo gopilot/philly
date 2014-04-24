@@ -11,18 +11,25 @@ html
         .background
 
         .section.align-corners.header
-            .box.left.blue.span-7.mobile-full
-                h1.pilot-logo=title
-                .typ-larger
-                    p Ever wanted to build a website or an app?
-                    p #{title} will help you learn how to create real products in one action-packed & incredibly fun #{hours_long} hour event.
-                p: a.button.large(href=register_link) Pre-Register >
-                p: a.action_link(href=mentor_doc) Want to sponsor? Start here >
-            .box.copy.right.slate.span-5.mobile-full
-                p “I came to this event not knowing what to expect. By the end I had a new group of friends and an end product that I never thought possible, let alone able to be done in just a few hours.” 
-                p.typ-small HackMITxPilot attendee
+            .row
+                .box.left.blue.span-7.mobile-full
+                    h1.pilot-logo=title
+                    .typ-larger
+                        p Ever wanted to build a website or an app?
+                        p #{title} will help you learn how to create real products in one action-packed & incredibly fun #{hours_long} hour event.
+                    p: a.button.large(href=register_link) Pre-Register >
+                    p: a.action_link(href=mentor_doc) Want to sponsor? Start here >
+            .row
+                nav.box.span-7.align-top.mobile-full
+                    a(href="#about") About
+                    a(href="#sponsors") Sponsors
+                    a(href="#schedule") Schedule
+                    a(href="#faq") FAQ
+                .box.copy.slate.span-5.mobile-full
+                    p “I came to this event not knowing what to expect. By the end I had a new group of friends and an end product that I never thought possible, let alone able to be done in just a few hours.” 
+                    p.typ-small HackMITxPilot attendee
 
-        ul.section.info-list.border-above
+        ul.section.info-list.border-above#about
             li
                 h6 When
                 p= date.display
@@ -49,7 +56,7 @@ html
                     p Through this process students learn how to think creatively, pitch and demo their projects, and more technical skills like how to code and design. Most importantly, they learn how to learn.
 
 
-        .section.sponsors.align-corners
+        .section.sponsors.align-corners#sponsors
             .box.title.blue.span-3
                 h4 Sponsors
 
@@ -65,7 +72,7 @@ html
                     .span-10.mobile-10.push-1
                         a(href="http://microsoft.com/"): img(src="/img/microsoft.png")
 
-        .section.schedule.large
+        .section.schedule.large#schedule
             .box.title.blue.span-3
                 h4 Schedule
 
@@ -76,7 +83,7 @@ html
                     .box.span-9= description
 
 
-        .section.align-corners.faq
+        .section.align-corners.faq#faq
             .box.title.left.blue.span-3
                 h4 FAQ
             .box.copy.slate.span-9.mobile-full

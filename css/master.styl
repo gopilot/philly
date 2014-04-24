@@ -48,6 +48,9 @@ for cols in (1..numcols)
         .align-corners > & + [class*="span-"]
             margin-left (cols/numcols) * 100%
 
+.align-top
+    vertical-align top
+
 // TODO create separate settings file
 // control as much of appearance as is reasonable through the config settings
 // to allow for customization per-event without having to dig into the actual css
@@ -61,6 +64,7 @@ base-font-size = 16px
 sizes = {
     small: .76rem
     base: 1rem
+    medium: 1.2rem
     large: 1.5rem
     larger: 1.8rem
 }
@@ -212,10 +216,18 @@ hr
     &.slate
         background: colors.slate
         color: white
+        a
+            color: lighten(colors.blue, 30%)
+            border-bottom: 1px solid rgba(colors.blue, .2)
+            &:hover
+                border-bottom-color: colors.blue
 
     &.white
         background: white
         color: colors.slate
+        a
+            color: colors.blue
+            border-bottom: 1px solid rgba(colors.blue, .2)
 
     &.copy
         padding-left 2.5rem
@@ -248,6 +260,28 @@ hr
     text-indent: -400px
     margin-top 20px
 
+.header nav
+    padding-top 0
+    a
+        display inline-block
+        vertical-align top
+        font-size: sizes.medium
+        text-transform: uppercase
+        border-right: 1px solid rgba(colors.blue, .4)
+        padding-top: p = 1.5em
+        padding-left 1em
+        padding-right 1em
+        transition background .3s, padding .3s
+
+        &:hover
+            background: rgba(colors.blue, .3)
+            padding-bottom: (p / 2.1)
+            padding-top: (p / 1.9)
+
+        &:last-child
+            border-right none
+
+
 /* Section specific styles/map sections to types above */
 
 .faq
@@ -268,7 +302,7 @@ hr
             margin-bottom 0
         >div
             box-sizing border-box
-            padding 40px
+            padding 3%
             display inline-block
             text-align center
             img

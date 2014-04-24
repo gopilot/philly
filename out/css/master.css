@@ -173,11 +173,17 @@
 .align-corners > .span-12 + [class*="span-"] {
   margin-left: 100%;
 }
+.align-top {
+  vertical-align: top;
+}
 .typ-small {
   font-size: 0.76rem;
 }
 .typ-base {
   font-size: 1rem;
+}
+.typ-medium {
+  font-size: 1.2rem;
 }
 .typ-large {
   font-size: 1.5rem;
@@ -427,9 +433,20 @@ hr {
   background: #212223;
   color: #fff;
 }
+.box.slate a {
+  color: #60b9ee;
+  border-bottom: 1px solid rgba(28,155,230,0.2);
+}
+.box.slate a:hover {
+  border-bottom-color: #1c9be6;
+}
 .box.white {
   background: #fff;
   color: #212223;
+}
+.box.white a {
+  color: #1c9be6;
+  border-bottom: 1px solid rgba(28,155,230,0.2);
 }
 .box.copy {
   padding-left: 2.5rem;
@@ -465,6 +482,32 @@ hr {
   text-indent: -400px;
   margin-top: 20px;
 }
+.header nav {
+  padding-top: 0;
+}
+.header nav a {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  border-right: 1px solid rgba(28,155,230,0.4);
+  padding-top: 1.5em;
+  padding-left: 1em;
+  padding-right: 1em;
+  -webkit-transition: background 0.3s, padding 0.3s;
+  -moz-transition: background 0.3s, padding 0.3s;
+  -o-transition: background 0.3s, padding 0.3s;
+  -ms-transition: background 0.3s, padding 0.3s;
+  transition: background 0.3s, padding 0.3s;
+}
+.header nav a:hover {
+  background: rgba(28,155,230,0.3);
+  padding-bottom: 0.7142857142857143em;
+  padding-top: 0.7894736842105263em;
+}
+.header nav a:last-child {
+  border-right: none;
+}
 /* Section specific styles/map sections to types above */
 .faq h5 + p {
   margin-top: 0.5rem;
@@ -482,7 +525,7 @@ hr {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  padding: 40px;
+  padding: 3%;
   display: inline-block;
   text-align: center;
 }
