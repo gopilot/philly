@@ -505,6 +505,16 @@ hr {
   padding-bottom: 0.7142857142857143em;
   padding-top: 0.7894736842105263em;
 }
+.header nav a:active {
+  background: rgba(28,155,230,0.9);
+  padding-bottom: 0.7142857142857143em;
+  padding-top: 0.7894736842105263em;
+  -webkit-transition: background 0.1s;
+  -moz-transition: background 0.1s;
+  -o-transition: background 0.1s;
+  -ms-transition: background 0.1s;
+  transition: background 0.1s;
+}
 .header nav a:last-child {
   border-right: none;
 }
@@ -528,6 +538,9 @@ hr {
   padding: 3%;
   display: inline-block;
   text-align: center;
+}
+.sponsors .sponsors-row >div a {
+  border-bottom: none;
 }
 .sponsors .sponsors-row >div img {
   width: 90%;

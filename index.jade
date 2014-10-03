@@ -17,13 +17,14 @@ html
                     .typ-larger
                         p Ever wanted to build a website or an app?
                         p #{title} will help you learn how to create real products in one action-packed & incredibly fun #{hours_long} hour event.
-                    p: a.button.large(href=register_link) Pre-Register >
-                    p: a.action_link(href=mentor_doc) Want to sponsor? Start here >
+                    //p: a.button.large(href=register_link) Pre-Register >
+                    //p: a.action_link(href=mentor_doc) Want to sponsor? Start here >
+                    p: a.action_link(href=register_link) Get notified when registration opens >
             .row
                 nav.box.span-7.align-top.mobile-full
                     a(href="#about") About
                     a(href="#sponsors") Sponsors
-                    a(href="#schedule") Schedule
+                    //a(href="#schedule") Schedule
                     a(href="#faq") FAQ
                 .box.copy.slate.span-5.mobile-full
                     p “I came to this event not knowing what to expect. By the end I had a new group of friends and an end product that I never thought possible, let alone able to be done in just a few hours.” 
@@ -62,25 +63,17 @@ html
 
             .box.white.span-9.mobile-full
                 .sponsors-row
-                    .span-4.mobile-4
-                        a(href="http://intel.com/"): img(src="/img/intel.png")
-                    .span-4.mobile-4
-                        a(href="http://www.jesuitportland.org/"): img(src="/img/jesuit.png")
-                    .span-4.mobile-4
-                        a(href="https://software.intel.com/en-us/codeforgood/"): img(src="/img/codeForGood.png")
-                .sponsors-row
-                    .span-10.mobile-10.push-1
-                        a(href="http://microsoft.com/"): img(src="/img/microsoft.png")
-
-        .section.schedule.large#schedule
-            .box.title.blue.span-3
-                h4 Schedule
-
-            each description, time in schedule
-                .row
-                    .box.span-3.typ-right
-                       h6= time
-                    .box.span-9= description
+                    .span-6.mobile-6.push-3
+                        a(href="http://www.streetcodeacademy.org/"): img(src="/img/streetcode.png")
+        //
+            .section.schedule.large#schedule
+                .box.title.blue.span-3
+                    h4 Schedule
+                    each description, time in schedule
+                        .row
+                            .box.span-3.typ-right
+                               h6= time
+                            .box.span-9= description
 
 
         .section.align-corners.faq#faq

@@ -278,6 +278,12 @@ hr
             padding-bottom: (p / 2.1)
             padding-top: (p / 1.9)
 
+        &:active
+            background: rgba(colors.blue, .9)
+            padding-bottom: (p / 2.1)
+            padding-top: (p / 1.9)
+            transition background .1s
+
         &:last-child
             border-right none
 
@@ -305,6 +311,8 @@ hr
             padding 3%
             display inline-block
             text-align center
+            a
+                border-bottom none
             img
                 width 90%
                 height auto
