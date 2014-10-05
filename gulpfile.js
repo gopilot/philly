@@ -21,11 +21,14 @@ function runServer() {
     }).listen(8000);
 }
 
-var gitRemoteUrl = "https://github.com/gopilot/epa.git"
 
 gulp.task('deploy', function () {
+    var options = {
+        remoteUrl: "https://github.com/gopilot/epa.git"
+    }
+
     return gulp.src("./out/**/*")
-        .pipe(deploy(gitRemoteUrl));
+        .pipe(deploy(options));
 });
 
 // compile css
