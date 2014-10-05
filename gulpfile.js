@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var stylus = require('gulp-stylus');
 var jade = require('gulp-jade');
-
+var when = require('when');
 var jsyaml = require('js-yaml');
 var fs = require('fs');
 
@@ -33,27 +33,40 @@ gulp.task('deploy', ['stylus', 'html', 'static'], function () {
 
 // compile css
 gulp.task('stylus', function () {
-    gulp.src('./css/master.styl')
-        .pipe(stylus({use: ['nib']}))
-        .pipe(gulp.dest('./out/css'));
-    gulp.src('./css/confirmation.styl')
-        .pipe(stylus({use: ['nib']}))
-        .pipe(gulp.dest('./out/css'));
+    var promises = []
+    promises.push(
+        gulp.src('./css/master.styl')
+            .pipe(stylus({use: ['nib']}))
+            .pipe(gulp.dest('./out/css'))
+    )
+    promises.push(
+        gulp.src('./css/confirmation.styl')
+            .pipe(stylus({use: ['nib']}))
+            .pipe(gulp.dest('./out/css'))
+    )
+    return when.all(promises)
 });
 
 // compile our HTML
 gulp.task('html', function() {
     var locals = jsyaml.load(fs.readFileSync('./info.yaml', 'utf8')); // load yaml
-    gulp.src('./index.jade')
-        .pipe(jade({
-            locals: locals
-        }))
-        .pipe(gulp.dest('./out'));
-    gulp.src('./confirmation.jade')
-        .pipe(jade({
-            locals: locals
-        }))
-        .pipe(gulp.dest('./out'));
+    var promises = []
+    
+    promises.push(
+        gulp.src('./index.jade')
+            .pipe(jade({
+                locals: locals
+            }))
+            .pipe(gulp.dest('./out'))
+    );
+    promises.push(
+        gulp.src('./confirmation.jade')
+            .pipe(jade({
+                locals: locals
+            }))
+            .pipe(gulp.dest('./out'))
+    );
+    return when.all(promises)
 });
 
 gulp.task('default', function(){

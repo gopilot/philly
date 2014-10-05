@@ -9,7 +9,8 @@
     "gulp-stylus": "0.0.14",
     "node-static": "~0.7.6",
     "js-yaml": "~3.0.2",
-    "gulp-gh-pages": "~0.1.4"
+    "gulp-gh-pages": "~0.1.4",
+    "when": "~3.5.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
