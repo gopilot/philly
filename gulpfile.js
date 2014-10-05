@@ -26,7 +26,7 @@ gulp.task('deploy', ['stylus', 'html', 'static'], function () {
     var remote = "https://github.com/gopilot/epa.git";
 
     return gulp.src("./out/**/*")
-        .pipe(deploy( remote ));
+        .pipe( deploy( remote ) );
 });
 
 // compile css
