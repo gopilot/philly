@@ -23,12 +23,10 @@ function runServer() {
 
 
 gulp.task('deploy', ['stylus', 'html', 'static'], function () {
-    var options = {
-        remoteUrl: "https://github.com/gopilot/epa.git"
-    }
+    var remote = "https://github.com/gopilot/epa.git";
 
     return gulp.src("./out/**/*")
-        .pipe(deploy(options));
+        .pipe(deploy( remote ));
 });
 
 // compile css
