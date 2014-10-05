@@ -21,7 +21,7 @@ function runServer() {
     }).listen(8000);
 }
 
-var gitRemoteUrl = "https://github.com/gopilot/pdx.git"
+var gitRemoteUrl = "https://github.com/gopilot/epa.git"
 
 gulp.task('deploy', function () {
     return gulp.src("./out/**/*")
