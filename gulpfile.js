@@ -22,7 +22,7 @@ function runServer() {
 }
 
 
-gulp.task('deploy', function () {
+gulp.task('deploy', ['stylus', 'html', 'static'], function () {
     var options = {
         remoteUrl: "https://github.com/gopilot/epa.git"
     }
@@ -66,7 +66,6 @@ gulp.task('default', function(){
 gulp.task('static', function(){
     return gulp.src('./static/**')
         .pipe(gulp.dest('./out'));
-
 });
 
 gulp.task('watch', function() {
