@@ -157,8 +157,8 @@ hr
     color: white
     padding 8px 18px
     display: inline-block
-
-    transition: all .2s
+    cursor: pointer
+    transition: background .2s
 
     &:hover
         background: rgba(black, .5)
@@ -167,6 +167,9 @@ hr
         padding .75rem 1.68rem
         font-size: sizes.large
         border-radius: 28px
+        
+
+
 
 .action_link
     text-transform uppercase
@@ -221,6 +224,12 @@ hr
             border-bottom: 1px solid rgba(colors.blue, .2)
             &:hover
                 border-bottom-color: colors.blue
+        .button
+            border: none
+            background: rgba(colors.blue, 1.0)
+            color: white
+            &:hover
+                background: rgba(colors.blue, 0.7)
 
     &.white
         background: white
@@ -317,5 +326,5 @@ hr
                 width 90%
                 height auto
 
-
+@import _registration
 @import _mq
