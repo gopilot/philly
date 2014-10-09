@@ -77,6 +77,7 @@ jQuery(function($){
 			$(this).parent().addClass('error');
 	});
 	$('input.cc-exp').on('blur', function(evt){
+		var value = $(this).payment('cardExpiryVal')
 		expOk = $.payment.validateCardExpiry( value.month, value.year )
 		checkSubmit()
 		if( expOk )
@@ -84,6 +85,5 @@ jQuery(function($){
 		else
 			$(this).parent().addClass('error');
 	});
-
 });
 
