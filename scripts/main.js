@@ -1,55 +1,89 @@
-// Class helper functions
-var find = function(element, s){
-	if(typeof element == 'string'){
-		s = element
-		element = document
+jQuery(function($){
+
+	var registerButton = $('.js-register'),
+		modal = $( '#registerModal' ),
+		submit = $( '#registerModal .js-modal-close' ),
+		overlay = $( '.modal-overlay' );
+
+
+	// Modal Opening/Closing
+	function closeModal(){
+		modal.removeClass('show' );
 	}
-	return document.querySelectorAll(s)
-}
-var findOne = function(element, s){
-	if(typeof element == 'string'){
-		s = element
-		element = document
+	registerButton.on( 'click', function( event ) {
+		modal.addClass('show')
+
+		overlay.unbind('click', closeModal );
+		overlay.on( 'click', closeModal );
+	});
+	submit.on( 'click', function( ev ) {
+		ev.stopPropagation();
+		closeModal();
+	});
+
+	// Form Validation
+	$('input.cc-num').payment('formatCardNumber');
+	$('input.cc-exp').payment('formatCardExpiry');
+	$('input.cc-cvc').payment('formatCardCVC');
+	$('[data-numeric]').payment('restrictNumeric');
+
+	var cardType;
+	var nameOk = emailOk = numOk = cvcOk = expOk = true;
+	function checkSubmit(){
+		if(nameOk && emailOk && numOk && cvcOk && expOk){
+			submit.removeClass('disabled')
+		}else{
+			submit.addClass('disabled')
+		}
 	}
-	return element.querySelector(s)
-}
-function addClass(el, cls){
-	if (el.classList){
-		classes = cls.split(' ')
-		for(var i in classes)
-	  		el.classList.add(classes[i]);
-	}else
-	  el.className += ' ' + cls;
-}
-function hasClass(el, cls){
-	if (el.classList)
-	  return el.classList.contains(className);
-	else
-	  return new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
-}
-function removeClass(el, cls){
-	if (el.classList)
-	  el.classList.remove(cls);
-	else
-	  el.className = el.className.replace(new RegExp('(^|\\b)' + cls.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
-}
+	$('input.cc-num').on('keyup', function(evt){
+		var newType = $.payment.cardType( parseInt( $(this).val() ) )
+		if( newType && newType != cardType ){
+			cardType = newType
+			console.log(cardType);
+		}
+	});
 
-var registerButton = findOne('.js-register');
-	modal = findOne( '#registerModal' ),
-	close = findOne( modal, '.js-modal-close' ),
-	overlay = document.querySelector( '.modal-overlay' );;
+	$('input.name').on('blur', function(evt){
+		nameOk = $(this).val().match(/^[a-zA-Z\\s]+ /i)
+		checkSubmit()
+		if(nameOk)
+			$(this).parent().removeClass('error');
+		else
+			$(this).parent().addClass('error');
+	});
+	$('input.email').on('blur', function(evt){
+		emailOk = $(this).val().match(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b/i)
+		checkSubmit()
+		if(emailOk)
+			$(this).parent().removeClass('error');
+		else
+			$(this).parent().addClass('error');
+	});
+	$('input.cc-num').on('blur', function(evt){
+		numOk = $.payment.validateCardNumber( $(this).val() )
+		checkSubmit()
+		if( numOk )
+			$(this).parent().removeClass('error');
+		else
+			$(this).parent().addClass('error');
+	});
+	$('input.cc-cvc').on('blur', function(evt){
+		cvcOk = $.payment.validateCardCVC( $(this).val(), cardType )
+		checkSubmit()
+		if( cvcOk )
+			$(this).parent().removeClass('error');
+		else
+			$(this).parent().addClass('error');
+	});
+	$('input.cc-exp').on('blur', function(evt){
+		expOk = $.payment.validateCardExpiry( value.month, value.year )
+		checkSubmit()
+		if( expOk )
+			$(this).parent().removeClass('error');
+		else
+			$(this).parent().addClass('error');
+	});
 
-function removeModal(){
-	removeClass( modal, 'show' );
-}
-
-registerButton.addEventListener( 'click', function( event ) {
-	addClass( modal, 'show' );
-	overlay.removeEventListener( 'click', removeModal );
-	overlay.addEventListener( 'click', removeModal );
 });
 
-close.addEventListener( 'click', function( ev ) {
-	ev.stopPropagation();
-	removeModal()
-});

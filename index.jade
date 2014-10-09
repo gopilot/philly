@@ -6,12 +6,30 @@ html
         title=title
         meta(name='description', content='')
         meta(name='viewport', content='width=device-width, initial-scale=1')
+        link(rel='stylesheet', href='font/icon-7/css/icons.css')
         link(rel='stylesheet', href='css/master.css')
         
     body
         #registerModal.modal
             .modal-content.box.slate 
-                .register-form Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vitae orci sem. Aliquam ac lacinia dui. Nunc in risus eget dui elementum accumsan id vitae nisi. Etiam orci justo, ultricies sed nulla vitae, eleifend porttitor libero. Praesent eget maximus ex. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec hendrerit, tortor ac congue lacinia, enim ipsum tristique purus, vitae posuere lacus justo id risus. In tempor metus scelerisque elit luctus, sed consectetur odio faucibus. Aenean dolor est, pretium eu vehicula quis, auctor at risus. Aenean gravida purus magna, ac tristique nisi laoreet hendrerit. Phasellus pretium id quam eget mollis. Curabitur lobortis tempor diam, sit amet euismod eros eleifend vel. Nullam et nibh in urna efficitur semper. Fusce sagittis lectus a quam luctus consectetur.
+                h1.modal-title Register for #{title}
+                form.register-form
+                    .input-container
+                        input.name(type="text" placeholder="Full Name")
+                        i.pe-7s-user
+                    .input-container
+                        input.email(type="text" placeholder="Email Address")
+                        i.pe-7s-mail
+                    .input-container.credit-card
+                        .input-container
+                            input.cc-num(type="text" placeholder="Credit Card" data-numeric)
+                            i.pe-7s-credit
+                        .input-container.half
+                            input.cc-cvc(type="text" placeholder="CVC" data-numeric)
+                            i.pe-7s-lock
+                        .input-container.half
+                            input.cc-exp(type="text" placeholder="MM/YY")
+                            i.pe-7s-date
                 .button-container
                     a.button.large.block.js-modal-close Register
 
@@ -122,4 +140,6 @@ html
                     p We'd love to help answer it for you! Send us an email at <a href="mailto:fly@gopilot.org">fly@gopilot.org</a> with your question, and we'll get back to you within 24 hours.
         
         <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', '#{analytics}', 'gopilot.org');ga('send', 'pageview');</script>
-        script(type="text/javascript" src="/scripts/main.js")
+        script(type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js")
+        script(type="text/javascript" src="/scripts/jquery.payment.js" async)
+        script(type="text/javascript" src="/scripts/main.js" async)
