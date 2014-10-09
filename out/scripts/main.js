@@ -5,7 +5,6 @@ jQuery(function($){
 		submit = $( '#registerModal .js-modal-close' ),
 		overlay = $( '.modal-overlay' );
 
-
 	// Modal Opening/Closing
 	function closeModal(){
 		modal.removeClass('show' );
@@ -19,6 +18,9 @@ jQuery(function($){
 	submit.on( 'click', function( ev ) {
 		ev.stopPropagation();
 		closeModal();
+	});
+	$('.show-discount').on('click', function(){
+		$('input.discount').parent().removeClass('hidden')
 	});
 
 	// Form Validation

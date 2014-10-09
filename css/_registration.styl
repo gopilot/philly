@@ -47,6 +47,17 @@
             margin-top 20px
             text-align center
 
+        .show-discount
+            display block
+            position absolute
+            right 0
+            bottom 0
+            margin 10px 15px
+            cursor pointer
+
+        .modal-text
+            margin 20px auto
+
         .register-form
             .input-container
                 display block
@@ -58,6 +69,7 @@
                 width 50%
 
                 box-sizing border-box;
+                border: 2px solid rgba(white, 0)
 
                 input
                     width 85%
@@ -81,6 +93,9 @@
 
                 &.error
                     border: 2px solid darken(red, 40%) !important
+
+                &.hidden
+                    display none
 
                 &.credit-card
 

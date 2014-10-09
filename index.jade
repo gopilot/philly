@@ -12,7 +12,7 @@ html
     body
         #registerModal.modal
             .modal-content.box.slate 
-                h1.modal-title Register for #{title}
+                h1.modal-title Register for #{title} - $#{price}
                 form.register-form
                     .input-container
                         input.name(type="text" placeholder="Full Name")
@@ -30,8 +30,16 @@ html
                         .input-container.half
                             input.cc-exp(type="text" placeholder="MM/YY")
                             i.pe-7s-date
+                    .input-container.hidden
+                        input.discount(type="text" placeholder="Discount Code")
+                        i.pe-7s-ticket
+
+                .modal-text
+                    | Your credit card will be charged
+                    span.js-total  $#{price}.
                 .button-container
                     a.button.large.block.js-modal-close Register
+                a.show-discount Have a discount code?
 
         .background
         .modal-overlay

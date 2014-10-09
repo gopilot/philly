@@ -632,6 +632,17 @@ hr {
   margin-top: 20px;
   text-align: center;
 }
+.modal .modal-content .show-discount {
+  display: block;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin: 10px 15px;
+  cursor: pointer;
+}
+.modal .modal-content .modal-text {
+  margin: 20px auto;
+}
 .modal .modal-content .register-form .input-container {
   display: block;
   margin: 10px auto;
@@ -643,6 +654,7 @@ hr {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  border: 2px solid rgba(255,255,255,0);
 }
 .modal .modal-content .register-form .input-container input {
   width: 85%;
@@ -665,6 +677,9 @@ hr {
 }
 .modal .modal-content .register-form .input-container.error {
   border: 2px solid #900 !important;
+}
+.modal .modal-content .register-form .input-container.hidden {
+  display: none;
 }
 .modal .modal-content .register-form .input-container.credit-card .input-container {
   width: 100%;
