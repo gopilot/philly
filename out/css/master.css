@@ -710,8 +710,11 @@ input::-webkit-inner-spin-button {
 .modal .modal-content .register-form .button-container a.button.success {
   background-color: #00b900;
 }
+.modal .modal-content .register-form .button-container a.button.fail {
+  background-color: #ff4040;
+}
 .modal .modal-content .register-form .button-container a.button.has-icon {
-  font-size: 25px;
+  font-size: 20px;
   pointer-events: none;
   cursor: default;
 }
@@ -719,6 +722,18 @@ input::-webkit-inner-spin-button {
   display: inline-block;
   width: 25px;
   height: 25px;
+}
+.modal .modal-content .register-form .input-error-text {
+  display: none;
+  marign: auto;
+  margin-top: -5px;
+  margin-bottom: 5px;
+  font-size: 14px;
+  text-align: center;
+  color: #ff4d4d;
+}
+.modal .modal-content .register-form .input-error-text.show {
+  display: block;
 }
 .modal .modal-content .register-form .input-container {
   display: block;

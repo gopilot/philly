@@ -67,12 +67,7 @@ gulp.task('html', function() {
     return when.all(promises)
 });
 
-gulp.task('default', function(){
-    gulp.run('stylus');
-    gulp.run('html');
-    gulp.run('scripts');
-    gulp.run('static');
-});
+gulp.task('default', ['stylus', 'html', 'scripts', 'static'])
 
 // copy over everything from the static folder (images, etc)
 // NOTE: into the root of the out folder

@@ -19,11 +19,13 @@ html
                         i.pe-7s-user.left
                         i.pe-7s-check.input-check.right
                         i.pe-7s-close-circle.input-error.right
+                    .input-error-text.name
                     .input-container.empty
                         input.email(type="email" placeholder="Email Address")
                         i.pe-7s-mail.left
                         i.pe-7s-check.input-check.right
                         i.pe-7s-close-circle.input-error.right
+                    .input-error-text.email
                     .input-container.credit-card
                         .input-container.empty
                             input.cc-num(type="text" pattern='[0-9]*' placeholder="Credit Card" novalidate)
@@ -40,6 +42,7 @@ html
                             i.pe-7s-date.left
                             i.pe-7s-check.input-check.right
                             i.pe-7s-close-circle.input-error.right
+                    .input-error-text.cc
                     .input-container.hidden.empty
                         input.discount(type="text" placeholder="Discount Code (optional)")
                         i.pe-7s-ticket.left
@@ -167,4 +170,4 @@ html
         script(type="text/javascript" src="/scripts/jquery.typewatch.js")
         script(type="text/javascript" src="/scripts/jquery.payment.js")
         script(type="text/javascript" src="/scripts/main.js" async)
-        <script>var PILOT_EVENT_ID = "#{event_id}";</script>
+        <script>var PILOT_EVENT_ID = "#{test_event_id}";</script>

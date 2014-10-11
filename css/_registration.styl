@@ -74,14 +74,27 @@
                     width: 200px
                     &.success
                         background-color: lighten(green, 15%)
+                    &.fail
+                        background-color: lighten(red, 25%)
                     &.has-icon
-                        font-size 25px
+                        font-size 20px
                         pointer-events none
                         cursor default
                         i
                             display inline-block
                             width 25px
                             height 25px
+
+            .input-error-text
+                display none
+                marign auto
+                margin-top -5px
+                margin-bottom 5px
+                font-size 14px
+                text-align center
+                color lighten(red, 30%)
+                &.show
+                    display block
 
             .input-container
                 display block

@@ -9,14 +9,18 @@ jQuery(function($){
 	// Currently a test key
 	Stripe.setPublishableKey('pk_test_bVNI8WnLVJlwNySLMliWPRjW');
 
-	$.postJSON = function(url, data, callback) {
+	$.postJSON = function(url, data, onSuccess, onError) {
 	    return jQuery.ajax({
 	        'type': 'POST',
 	        'url': url,
 	        'contentType': 'application/json',
 	        'data': JSON.stringify(data),
 	        'dataType': 'json',
-	        'success': callback
+	        'success': onSuccess,
+	        'error': function(jqxhr){
+	        	var json = JSON.parse(jqxhr.responseText);
+	        	return onError(json, jqxhr.statusCode());
+	        }
 	    });
 	};
 
@@ -209,12 +213,48 @@ jQuery(function($){
 					discount: $('input.discount').val() || false
 				}
 
-				$.postJSON('http://api.gopilot.org/events/'+PILOT_EVENT_ID+'/register', data, function(data){
+				$.postJSON('http://localhost:5000/events/'+PILOT_EVENT_ID+'/register', data,
+				function(data){
+					console.log("Done!", data);
 					$('.js-submit').addClass('success');
 					$('.js-submit').html('<i class="pe-7s-check"></i>');
 					setTimeout(function(){
 						modal.removeClass('show') // Temp, until we show a page after the request succeeds
 					}, 1500)
+				}, 
+				function(err, status){
+					console.log(err);
+
+					$('.js-submit').addClass('fail');
+					$('.js-submit').html('<i class="pe-7s-close-circle"></i>');
+					setTimeout(function(){
+						$('.js-submit').html('Register'); // Temp, until we show a page after the request succeeds
+						$('.js-submit').removeClass('has-icon');
+						$('.js-submit').removeClass('fail')
+					}, 1500)
+
+					var block = (err.reason == "name") ? "name" : 
+								(err.reason == "email") ? "email" : "cc";
+ 					
+					$('input.'+block).parent().addClass('error');
+					$('.input-error-text.'+block).text(err.message);
+					$('.input-error-text.'+block).addClass('show');
+
+					var input = false;
+					if(block != "cc")
+						input = block;
+					else if(err.reason == "number")
+						input = "cc-num";
+					else if(err.reason == "cvc")
+						input = "cc-cvc";
+					else if(err.reason == "exp_month" || err.reason == "exp_year")
+						input = "cc-exp";
+					else if(err.reason == "charge" || err.reason == "customer")
+						input = "cc-num"
+
+					if(input)
+						$("input."+input).parent().addClass('error');
+
 				});
 				$('js-submit').html('<i class="pe-7s-config spin"></i>');
 			}
