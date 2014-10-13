@@ -82,9 +82,10 @@ jQuery(function($){
 	var cardType;
 	var nameOk = emailOk = numOk = cvcOk = expOk = false;
 	function checkSubmit(){
-		if(nameOk && emailOk && numOk && cvcOk && expOk)
+		if(nameOk && emailOk && numOk && cvcOk && expOk){
 			submit.removeClass('disabled');
-		else
+			$('.input-error-text').removeClass('show');
+		}else
 			submit.addClass('disabled');
 		
 		return nameOk && emailOk && numOk && cvcOk && expOk;
@@ -126,18 +127,20 @@ jQuery(function($){
 			$(this).parent().addClass('error');
 	});
 	$('input.cc-num').on('blur', function(evt){
-		console.log(cardType)
-		if(!cardType || cardType == undefined){
-			var card = $(this).siblings('.card').addClass('pe-7s-check');
-			cardType = 'pe-7s-check';
+		if($(this).val()){
+			console.log(cardType)
+			if(!cardType || cardType == undefined){
+				var card = $(this).siblings('.card').addClass('pe-7s-check');
+				cardType = 'pe-7s-check';
+			}
+			$(this).parent().removeClass('empty');
+			numOk = $.payment.validateCardNumber( $(this).val() );
+			checkSubmit();
+			if( numOk )
+				$(this).parent().removeClass('error');
+			else
+				$(this).parent().addClass('error');
 		}
-		$(this).parent().removeClass('empty');
-		numOk = $.payment.validateCardNumber( $(this).val() );
-		checkSubmit();
-		if( numOk )
-			$(this).parent().removeClass('error');
-		else
-			$(this).parent().addClass('error');
 	});
 	$('input.cc-cvc').on('typingDone', function(evt){
 		$(this).parent().removeClass('empty');
@@ -191,77 +194,89 @@ jQuery(function($){
 		if( ! $('input.discount').hasClass('hidden') )
 			$('input.discount').trigger('typingDone');
 
-		var expDate = $('input.cc-exp').payment('cardExpiryVal');
+		if( checkSubmit() ){
+			var expDate = $('input.cc-exp').payment('cardExpiryVal');
 
-		var stripeData = {
-		  number: $('input.cc-num').val(),
-		  cvc: $('input.cc-cvc').val(),
-		  exp_month: expDate.month,
-		  exp_year: expDate.year
-		}
-		Stripe.card.createToken(stripeData, function(status, response){
-			if(response.error){
-				console.log("Error!", response.error);
-			}else{
-				console.log("Card", response.card)
-				var data = {
-					user: {
-						name: $('input.name').val(),
-						email: $('input.email').val(), 
-					},
-					stripe_token: response.id,
-					discount: $('input.discount').val() || false
-				}
-
-				$.postJSON('http://localhost:5000/events/'+PILOT_EVENT_ID+'/register', data,
-				function(data){
-					console.log("Done!", data);
-					$('.js-submit').addClass('success');
-					$('.js-submit').html('<i class="pe-7s-check"></i>');
-					setTimeout(function(){
-						modal.removeClass('show') // Temp, until we show a page after the request succeeds
-					}, 1500)
-				}, 
-				function(err, status){
-					console.log(err);
-
-					$('.js-submit').addClass('fail');
-					$('.js-submit').html('<i class="pe-7s-close-circle"></i>');
-					setTimeout(function(){
-						$('.js-submit').html('Register'); // Temp, until we show a page after the request succeeds
-						$('.js-submit').removeClass('has-icon');
-						$('.js-submit').removeClass('fail')
-					}, 1500)
-
-					var block = (err.reason == "name") ? "name" : 
-								(err.reason == "email") ? "email" : "cc";
- 					
-					$('input.'+block).parent().addClass('error');
-					$('.input-error-text.'+block).text(err.message);
-					$('.input-error-text.'+block).addClass('show');
-
-					var input = false;
-					if(block != "cc")
-						input = block;
-					else if(err.reason == "number")
-						input = "cc-num";
-					else if(err.reason == "cvc")
-						input = "cc-cvc";
-					else if(err.reason == "exp_month" || err.reason == "exp_year")
-						input = "cc-exp";
-					else if(err.reason == "charge" || err.reason == "customer")
-						input = "cc-num"
-
-					if(input)
-						$("input."+input).parent().addClass('error');
-
-				});
-				$('js-submit').html('<i class="pe-7s-config spin"></i>');
+			var stripeData = {
+			  number: $('input.cc-num').val(),
+			  cvc: $('input.cc-cvc').val(),
+			  exp_month: expDate.month,
+			  exp_year: expDate.year
 			}
-		});
-		$('.js-submit').addClass('has-icon')
-		$('.js-submit').html('<i class="pe-7s-config spin"></i>');
-	});
+			Stripe.card.createToken(stripeData, function(status, response){
+				if(response.error){
+					console.log("Error!", response.error);
+				}else{
+					console.log("Card", response.card)
+					var data = {
+						user: {
+							name: $('input.name').val(),
+							email: $('input.email').val(), 
+						},
+						stripe_token: response.id,
+						discount: $('input.discount').val() || false
+					}
 
+					var requestTimeout = setTimeout(function(){
+						$('.js-submit').addClass('fail');
+						$('.js-submit').html('<i class="pe-7s-close-circle"></i>');
+						setTimeout(function(){
+							$('.js-submit').html('Register'); // Temp, until we show a page after the request succeeds
+							$('.js-submit').removeClass('has-icon');
+							$('.js-submit').removeClass('fail');
+						}, 1500)
+						$('.input-error-text.cc').text("Uh oh, something's wrong... Try again in a little bit.");
+						$('.input-error-text.cc').addClass('show');
+					}, 5000);
+
+					$.postJSON('http://localhost:5000/events/'+PILOT_EVENT_ID+'/register', data,
+					function(data){
+						console.log("Done!", data);
+						$('.js-submit').addClass('success');
+						$('.js-submit').html('<i class="pe-7s-check"></i>');
+						setTimeout(function(){
+							modal.removeClass('show') // Temp, until we show a page after the request succeeds
+						}, 1500)
+					}, 
+					function(err, status){
+						console.log(err);
+						clearTimeout(requestTimeout)
+						$('.js-submit').addClass('fail');
+						$('.js-submit').html('<i class="pe-7s-close-circle"></i>');
+						setTimeout(function(){
+							$('.js-submit').html('Register'); // Temp, until we show a page after the request succeeds
+							$('.js-submit').removeClass('has-icon');
+							$('.js-submit').removeClass('fail')
+						}, 1500)
+
+						var block = (err.reason == "name") ? "name" : 
+									(err.reason == "email") ? "email" : "cc";
+	 					
+						$('.input-error-text.'+block).text(err.message);
+						$('.input-error-text.'+block).addClass('show');
+
+						var input = false;
+						if(block != "cc")
+							input = block;
+						else if(err.reason == "number")
+							input = "cc-num";
+						else if(err.reason == "cvc")
+							input = "cc-cvc";
+						else if(err.reason == "exp_month" || err.reason == "exp_year")
+							input = "cc-exp";
+						else if(err.reason == "charge" || err.reason == "customer")
+							input = "cc-num"
+
+						if(input)
+							$("input."+input).parent().addClass('error');
+
+					});
+					$('js-submit').html('<i class="pe-7s-config spin"></i>');
+				}
+			});
+			$('.js-submit').addClass('has-icon')
+			$('.js-submit').html('<i class="pe-7s-config spin"></i>');
+		}
+	});
 });
 
