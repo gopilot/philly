@@ -229,13 +229,14 @@ jQuery(function($){
 						$('.input-error-text.cc').addClass('show');
 					}, 5000);
 
-					$.postJSON('http://localhost:5000/events/'+PILOT_EVENT_ID+'/register', data,
+					$.postJSON('http://api.gopilot.org/events/'+PILOT_EVENT_ID+'/register', data,
 					function(data){
 						console.log("Done!", data);
 						$('.js-submit').addClass('success');
 						$('.js-submit').html('<i class="pe-7s-check"></i>');
 						setTimeout(function(){
-							modal.removeClass('show') // Temp, until we show a page after the request succeeds
+							$('.modal-content').removeClass('step-1');
+							$('.modal-content').addClass('step-2');
 						}, 1500)
 					}, 
 					function(err, status){
