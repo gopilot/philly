@@ -54,12 +54,16 @@ html
                             | Your credit card will be charged
                             span.js-total  $#{price}.
                         .button-container
-                            a.button.large.block.js-submit(action="submit") Register
+                            a.button.large.js-submit(action="submit") Register
 
                     a.show-discount Have a discount code?
                 .register-step-2
-                    | Post-registration text will go here
+                    h1.modal-title You're almost there!
+                    span.text Thanks for registering for #{title}, and we're super excited to see you there!
+                        | However, we need to know a few more things about you before you show up, so click the button below to get going!
+                    a.button.large.block(href="/complete.html") Complete your Profile                         
                 i.pe-7s-close.close-modal.js-modal-close
+
 
         .background
         .modal-overlay

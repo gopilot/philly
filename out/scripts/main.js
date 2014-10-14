@@ -54,12 +54,14 @@ jQuery(function($){
 	$('.show-discount').on('click', function(){
 		var parent = $('input.discount').parent()
 		if( parent.hasClass('hidden') ){
+			$('.modal-content').height( $('.modal-content').height()+50 )
 			parent.removeClass('hidden');
-			$('input.discount').focus()
+			$('input.discount').focus();
 			$(this).text('Hide discount field');
 		}else{
 			parent.addClass('hidden');
 			$(this).text('Have a discount code?');
+			$('.modal-content').height( $('.modal-content').height()-50 )
 		}
 	});
 
