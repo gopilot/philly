@@ -703,7 +703,7 @@ input::-webkit-inner-spin-button {
 .modal .modal-content .register-step-2 a.button {
   width: 50%;
   margin: auto;
-  margin-top: 30px;
+  margin-top: 20px;
 }
 .modal .modal-content.step-1 {
   height: 450px;
@@ -715,7 +715,7 @@ input::-webkit-inner-spin-button {
   left: 110%;
 }
 .modal .modal-content.step-2 {
-  height: 310px;
+  height: 280px;
 }
 .modal .modal-content.step-2 .register-step-1 {
   right: 110%;
