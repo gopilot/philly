@@ -38,7 +38,7 @@ gulp.task('stylus', function () {
             .pipe(gulp.dest('./out/css'))
     )
     promises.push(
-        gulp.src('./css/confirmation.styl')
+        gulp.src('./css/complete.styl')
             .pipe(stylus({use: ['nib']}))
             .pipe(gulp.dest('./out/css'))
     )
@@ -58,7 +58,7 @@ gulp.task('html', function() {
             .pipe(gulp.dest('./out'))
     );
     promises.push(
-        gulp.src('./confirmation.jade')
+        gulp.src('./complete.jade')
             .pipe(jade({
                 locals: locals
             }))

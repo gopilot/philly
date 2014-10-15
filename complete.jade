@@ -1,0 +1,90 @@
+doctype
+html
+	head
+		meta(charset='utf-8')
+		meta(http-equiv='X-UA-Compatible', content='IE=edge')
+		title Complete your #{title} registration
+		link(rel='stylesheet', href='font/icon-7/css/icons.css')
+		link(rel='stylesheet', href='css/complete.css')
+	body
+		.header
+			.pilot-logo
+		.content
+			h1.title Complete your #{title} Registration
+			form.complete
+				span.optional * All fields are required unless noted otherwise.
+				.input-container.name
+					.input-label Name
+					input(required type="text" value="Peter Andringa" data-validation="name" name="name")
+					i.status
+				.input-container.email
+					.input-label Email
+					input(required type="email" value="peter@andrin.ga" data-validation="email" name="email")
+					i.status.pe-7s-check
+				.input-container.half.half-lg.gender
+					.input-label Gender
+					.toggle-group
+						.toggle-button(value="male") Male
+						.toggle-button.selected(value="female") Female
+						.toggle-button(value="other") Other
+				.input-container.half.half-sm.age
+					.input-label Age
+					input(required type="text" pattern='[0-9]{2}' data-validation="age" name="age")
+					i.status
+				.input-container.grade
+					.input-label Grade
+					.toggle-group
+						.toggle-button(value="9") 9th
+						.toggle-button(value="10") 10th
+						.toggle-button.selected(value="11") 11th
+						.toggle-button(value="12") 12th
+						.toggle-button(value="Other") Other
+				.input-container.cell
+					.input-label Cell Phone
+					input(required type="text" pattern='[0-9]{10}' data-validation="phone" name="phone")
+					i.status
+				.input-container.emergency-name
+					.input-label Emergency Contact Name
+					input(required type="text" pattern='' data-validation="name" name="emerg-name")
+					i.status
+				.input-container.emergency-phone
+					.input-label Emergency Contact Cell Phone
+					input(required type="text" pattern='[0-9]{10}' data-validation="phone" name="emerg-phone")
+					i.status
+				.input-container.emergency-email
+					.input-label Emergency Contact Email
+					input(required type="email" data-validation="email" name="emerg-email")
+					i.status
+				.input-container.half.half-lg.has-experience
+					.input-label Do you have previous programming experience?
+					.toggle-group
+						.toggle-button(value="1") Yes
+						.toggle-button(value="0") No
+				.input-container.half.half-sm.experience.hidden
+					.input-label How many years?
+					input(required type="text" pattern="[0-9]*" data-validation="age" name="experience")
+					i.status
+				.input-container.tshirt
+					.input-label T-shirt size
+					.toggle-group.tshirt-type
+						.toggle-button(value="unisex") Unisex
+						.toggle-button(value="womens") Women
+					.toggle-group.tshirt-size
+						.toggle-button(value="small") Small
+						.toggle-button(value="medium") Medium
+						.toggle-button(value="large") Large
+				.input-container.diet
+					.input-label 
+						| Please list any dietary restrictions:
+						span.optional  (optional)
+					textarea
+				.input-container.other
+					.input-label
+						| Anything else you want us to know?
+						span.optional  (optional)
+					textarea
+				a.button.large.blue.js-submit Complete Registration
+
+		script(type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js")
+		script(type="text/javascript" src="/scripts/jquery.typewatch.js")
+		script(type="text/javascript" src="/scripts/complete.js" async)
