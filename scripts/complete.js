@@ -36,6 +36,9 @@ jQuery(function($){
 		}
 	}
 
+	validateInput( 'input.js-name' );
+	validateInput( 'input.js-email' );
+
 	$('input[required]').on('typingDone', function(evt){
 		validateInput(this);
 	});
