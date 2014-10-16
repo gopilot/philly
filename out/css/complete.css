@@ -128,7 +128,7 @@ textarea:focus {
   -ms-filter: none;
   filter: none;
 }
-span.optional {
+span.tiny {
   color: #777a7e;
   font-size: 0.76rem;
 }
