@@ -7,8 +7,13 @@ html
 		link(rel='stylesheet', href='font/icon-7/css/icons.css')
 		link(rel='stylesheet', href='css/complete.css')
 	body
-		.header
-			.pilot-logo
+		.error-container
+			.centered
+				h3.error-title Uh oh... Something went wrong.
+				.error-subject Send us an email at
+					a.email-link(href="mailto:fly@gopilot.org")  fly@gopilot.org
+					|  and we'll help fix it.
+
 		.content
 			h1.title Complete your #{title} Registration
 			form.complete

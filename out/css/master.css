@@ -858,7 +858,7 @@ input::-webkit-inner-spin-button {
   -webkit-background-size: contain;
   -moz-background-size: contain;
   background-size: contain;
-  background-repeat: none;
+  background-repeat: no-repeat;
   margin-top: 7px;
   margin-right: -28px;
 }

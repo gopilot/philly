@@ -78,6 +78,40 @@ span.tiny
     color: lighten(colors.slate, 40%)
     font-size: sizes.small
 
+.error-container
+    position fixed
+    width 100%
+    height 100%
+    top 0
+    left 0
+    right 0
+    bottom 0
+    background: colors.slate
+    color white
+    z-index 100
+    display none
+    &.shown
+        display block
+    .centered
+        position absolute;
+        width 500px 
+        max-width 500px
+        height 200px 
+        z-index 15 
+        top 50% 
+        left 50% 
+        margin -100px 0 0 -200px 
+        .error-title
+            font-weight 200
+            font-size 2rem
+        .email-link
+            text-decoration none
+            color: colors.blue
+            padding-bottom 2px
+            &:hover
+                border-bottom: 1px solid colors.blue
+
+
 .content
     display block
     max-width 600px
@@ -120,6 +154,12 @@ span.tiny
                     margin-left 3%
                 &.half-lg
                     width 59%
+                i.status
+                    position absolute
+                    top 32px
+                    bottom 2px
+                    left 144px
+
             &.hidden
                 display none
                 opacity 0

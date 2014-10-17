@@ -14,8 +14,8 @@ jQuery(function($){
 	var user = {};
 	var session;
 	$.get('http://api.gopilot.org/users/find_incomplete/'+getParameter('token'), function(data, status){
-		if(data.error){
-			// Do something here
+		if(!data || !data.session || !data.user){
+			$('.error-container').addClass("shown")
 			return console.log("ERROR", data)
 		}
 		document.cookie = "session="+data.session;
@@ -27,6 +27,9 @@ jQuery(function($){
 		};
 		$('.js-name').val( user.name );
 		$('.js-email').val( user.email );
+	}).error(function(data){
+		$('.error-container').addClass("shown")
+		return console.log("ERROR", data)
 	});
 
 	var validators = {
@@ -120,7 +123,7 @@ jQuery(function($){
 			beforeSend: function(xhr){xhr.setRequestHeader('session', session);},
 		}).done(function( data ){
 			console.log("DONE!!!", data);
-			alert("Success!")
+			window.location = "/confirmation.html"
 		});
 	}
 
