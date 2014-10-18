@@ -164,17 +164,30 @@ h1 + h3
         margin-left 10%
 
 .button
-    display inline-block
-    width 100%
-    margin 25px
+    text-transform: uppercase
+    background: rgba(black, .2)
+    color: white
+    padding 8px 18px
+    display: inline-block
+    cursor: pointer
+    transition: background .2s
+    font-weight 200
     padding 15px
-    border-radius 10px
-    color white
-    font-size 26px
-    text-align center
-    vertical-align center
-    background-color white
-    line-height 100%
+    margin 25px
+    width 100%
+    font-size: sizes.large
+    border-radius: 40px
+
+    &:hover
+        background: rgba(black, .5)
+    
+    &.disabled
+        pointer-events: none
+        cursor: default
+        opacity: 0.4
+
+    &.block
+        display block
     
     i
         display inline-block
@@ -197,8 +210,9 @@ h1 + h3
         text-decoration none
         border-bottom none
 
+
 .button-small
-    width 250px
+    width 270px
 
 .button-large
     width 400px

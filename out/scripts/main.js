@@ -7,7 +7,7 @@ jQuery(function($){
 	/********************************************/
 
 	// Currently a test key
-	Stripe.setPublishableKey('pk_test_bVNI8WnLVJlwNySLMliWPRjW');
+	Stripe.setPublishableKey('pk_live_BXRjo7MBwBvPSNM1338ZQVj3');
 
 	$.postJSON = function(url, data, onSuccess, onError) {
 	    return jQuery.ajax({
@@ -171,11 +171,6 @@ jQuery(function($){
 			return;
 		}
 		$(this).parent().removeClass('empty');
-		
-		// Post request to check discount
-			// 	$(this).parent().removeClass('error');
-			// else
-			// 	$(this).parent().addClass('error');
 	});
 
 

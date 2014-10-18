@@ -1,14 +1,12 @@
 title: PilotEPA
 city: East Palo Alto
-event_id: 5438cbc7a117e40007788100
-test_event_id: 5438aed22352723bd316194d
+event_id: 5441cd51f230170007f354c3
 price: 20.00
 date:
     display: November 14-15
 location:
     name: Streetcode Academy
-register_link: http://gopilot.us6.list-manage.com/subscribe?u=74a24da3e12b186f228268085&id=ee7090689a
-mentor_doc: /sponsorship.pdf
+sponsor_doc: /sponsorship.pdf
 hours_long: 24
 schedule:
     8:30am: Doors Open
@@ -18,9 +16,9 @@ schedule:
     6:00pm: Dinner
     7:00pm: Project work ends, judging begins
     8:00pm: Closing ceremony & awards
-    9:00pm: End of PilotPDX
+    9:00pm: End of PilotEPA
     9:30pm: All attendees must be signed out
 analytics: UA-43652846-3
-facebook_event: https://www.facebook.com/events/1463530917197699/
-share_url: http://pdx.gopilot.org/
-tweet_text: "I'm going to #PilotPDX on April 26! You should join me: "
+facebook_event: https://www.facebook.com/events/277202559157621/
+share_url: http://epa.gopilot.org/
+tweet_text: "I'm going to #PilotEPA on November 15! You should join me: "

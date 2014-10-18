@@ -56,7 +56,7 @@ html
                         .button-container
                             a.button.large.js-submit(action="submit") Register
 
-                    a.show-discount Have a discount code?
+                    //- a.show-discount Have a discount code?
                 .register-step-2
                     h1.modal-title You're almost there!
                     .text Thanks for registering! We're excited to see you at #{title}! We just need to know a few more things about you to complete your registration.
@@ -75,8 +75,10 @@ html
                     .typ-larger
                         p Ever wanted to build a website or an app?
                         p #{title} will help you learn how to create real products in one action-packed & incredibly fun #{hours_long} hour event.
-                    p: a.button.large.js-register Pre-Register >
-                    p: a.action_link(href=mentor_doc) Want to sponsor? Start here >
+                    p: a.button.large.js-register Register Now >
+                    p
+                        a.action_link(href=sponsor_doc) Want to sponsor? >
+                        a.action_link(href="/mentors.html") Want to mentor? > 
                     //p: a.action_link(href=register_link) Get notified when registration opens >
             .row
                 nav.box.span-7.align-top.mobile-full
