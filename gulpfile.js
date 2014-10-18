@@ -39,7 +39,6 @@ gulp.task('stylus', function () {
 // compile our HTML
 gulp.task('html', function() {
     var locals = jsyaml.load(fs.readFileSync('./info.yaml', 'utf8')); // load yaml
-    
     return gulp.src('./[!_]*.jade')
         .pipe(jade({
             locals: locals
