@@ -42,7 +42,8 @@ jQuery(function($){
 	}
 
 	function validateInput(elem){
-		$(elem).siblings('.status').removeClass('pe-7s-check pe-7s-close-circle')
+		$(elem).siblings('.status').removeClass('pe-7s-check pe-7s-close-circle');
+		$('.error-messages .message.'+field).remove()
 		if( $(elem).val().length > 0) {
 			var type = $(elem).data('validation');
 			var field = $(elem).attr('name');
@@ -52,12 +53,12 @@ jQuery(function($){
 				$(elem).siblings('.status').addClass('pe-7s-check');
 			}else{
 				user[ field ] = null;
-				$(elem).siblings('.status').addClass('pe-7s-close-circle')
-			}
-			
-			if(field == "confirm_password" && user['password'] && $(elem).val() != user['password']){
-				$(elem).siblings('.status').removeClass('pe-7s-close-circle');
 				$(elem).siblings('.status').addClass('pe-7s-close-circle');
+				
+				if( $('.error-messages .message.'+field).length )
+					$('.error-messages .message.'+field).text( $(elem).data("error") );
+				else
+					$('.error-messages').append("<div class='message "+field+"'>"+$(elem).data("error")+"</div>");
 			}
 		}else{
 			user[ field ] = null;
@@ -92,10 +93,43 @@ jQuery(function($){
 				$('.input-container.experience').addClass('hidden')
 			}
 		}
-		
+		$('.error-messages .message.'+field).remove()
 	});
 
+	function printFieldErrors(){
+		$('.toggle-group').each(function(index){
+			console.log(index);
+			var field = $(this).attr('name');
+			if( $(this).children(".selected").length ){
+				// No worries
+			}else{
+				console.log( field ) 
+				if( $('.error-messages .message.'+field).length )
+					$('.error-messages .message.'+field).text( $(this).data("error") );
+				else
+					$('.error-messages').append("<div class='message "+field+"'>"+$(this).data("error")+"</div>");
+			}
+		});	
+		$('input[required], textarea[required]').each(function(index){
+			console.log(index);
+			var field = $(this).attr('name');
+			var type = $(this).data('validation')
+
+			if( $(this).val().match( validators[ type ] ) ){
+				user[ field ] = $(this).val()
+				$(this).siblings('.status').addClass('pe-7s-check');
+			}else{
+				$(this).siblings('.status').addClass('pe-7s-close-circle');
+				if( $('.error-messages .message.'+field).length )
+					$('.error-messages .message.'+field).text( $(this).data("error") );
+				else
+					$('.error-messages').append("<div class='message "+field+"'>"+$(this).data("error")+"</div>");
+			}
+		});
+	}
+
 	function checkFields(user){
+		printFieldErrors();
 		return user[ 'name' ] &&
 				user['email'] &&
 				user['gender'] &&
@@ -139,7 +173,7 @@ jQuery(function($){
 			putUser( user )
 		}else{
 			console.log("error", user)
-			$('i.status:not(.pe-7s-check)').addClass('pe-7s-close-circle');	
+			$('i.status:not(.pe-7s-check)').addClass('pe-7s-close-circle');
 		}
 	});
 });

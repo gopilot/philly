@@ -58,6 +58,7 @@ textarea:focus {
   -o-transition: background 0.2s;
   -ms-transition: background 0.2s;
   transition: background 0.2s;
+  margin: auto;
 }
 .button:hover {
   background: rgba(39,39,39,0.5);
@@ -235,4 +236,18 @@ span.tiny {
   opacity: 0;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   filter: alpha(opacity=0);
+}
+.content form.complete .submit-button-container {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+.content form.complete .error-messages {
+  color: #b44326;
+  margin: 15px auto;
+  text-align: center;
+}
+.content form.complete .error-messages .message {
+  width: 100%;
+  text-align: center;
 }

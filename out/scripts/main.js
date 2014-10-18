@@ -224,10 +224,11 @@ jQuery(function($){
 						}, 1500)
 						$('.input-error-text.cc').text("Uh oh, something's wrong... Try again in a little bit.");
 						$('.input-error-text.cc').addClass('show');
-					}, 5000);
+					}, 10000);
 
 					$.postJSON('http://api.gopilot.org/events/'+PILOT_EVENT_ID+'/register', data,
 					function(data){
+						removeTimeout
 						console.log("Done!", data);
 						$('.button.js-complete').attr('href', '/complete.html?token='+data.token)
 						$('.js-submit').addClass('success');

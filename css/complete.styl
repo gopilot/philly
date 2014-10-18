@@ -33,6 +33,7 @@ input, textarea
     display: inline-block
     cursor: pointer
     transition: background .2s
+    margin: auto;
     &:hover
         background: rgba(black, .5)
     &.large
@@ -163,3 +164,14 @@ span.tiny
             &.hidden
                 display none
                 opacity 0
+        .submit-button-container
+            display block
+            width 100%
+            text-align center
+        .error-messages
+            color red
+            margin 15px auto
+            text-align center
+            .message
+                width 100%
+                text-align center
