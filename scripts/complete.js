@@ -154,9 +154,6 @@ jQuery(function($){
 			contentType: "application/json",
 			dataType: "json",
 			beforeSend: function(xhr){xhr.setRequestHeader('session', session);},
-		}).error(function( err ){
-			console.log("ERROR!", err);
-			$('.error-container').addClass("shown");
 		}).done(function( data ){
 			console.log("DONE!!!", data);
 			clearTimeout(submitTimer);
