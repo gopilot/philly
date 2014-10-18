@@ -13,16 +13,16 @@ var static = require('node-static');
 //
 var file = new static.Server('./out');
 
-function runServer() {
+function runServer(port) {
     require('http').createServer(function (request, response) {
         request.addListener('end', function () {
             file.serve(request, response);
         }).resume();
-    }).listen(8000);
+    }).listen(port || 8000);
 }
 
 
-gulp.task('deploy', ['stylus', 'html', 'static'], function () {
+gulp.task('deploy', ['stylus', 'html', 'static', 'scripts'], function () {
     var remote = "https://github.com/gopilot/epa.git";
 
     return gulp.src("./out/**/*")
@@ -31,46 +31,23 @@ gulp.task('deploy', ['stylus', 'html', 'static'], function () {
 
 // compile css
 gulp.task('stylus', function () {
-    var promises = []
-    promises.push(
-        gulp.src('./css/master.styl')
-            .pipe(stylus({use: ['nib']}))
-            .pipe(gulp.dest('./out/css'))
-    )
-    promises.push(
-        gulp.src('./css/confirmation.styl')
-            .pipe(stylus({use: ['nib']}))
-            .pipe(gulp.dest('./out/css'))
-    )
-    return when.all(promises)
+    return gulp.src('./css/[!_]*.styl')
+        .pipe(stylus({use: ['nib']}))
+        .pipe(gulp.dest('./out/css'))
 });
 
 // compile our HTML
 gulp.task('html', function() {
     var locals = jsyaml.load(fs.readFileSync('./info.yaml', 'utf8')); // load yaml
-    var promises = []
     
-    promises.push(
-        gulp.src('./index.jade')
-            .pipe(jade({
-                locals: locals
-            }))
-            .pipe(gulp.dest('./out'))
-    );
-    promises.push(
-        gulp.src('./confirmation.jade')
-            .pipe(jade({
-                locals: locals
-            }))
-            .pipe(gulp.dest('./out'))
-    );
-    return when.all(promises)
+    return gulp.src('./[!_]*.jade')
+        .pipe(jade({
+            locals: locals
+        }))
+        .pipe(gulp.dest('./out'))
 });
 
-gulp.task('default', function(){
-    gulp.run('stylus');
-    gulp.run('html');
-});
+gulp.task('default', ['stylus', 'html', 'scripts', 'static'])
 
 // copy over everything from the static folder (images, etc)
 // NOTE: into the root of the out folder
@@ -79,10 +56,16 @@ gulp.task('static', function(){
         .pipe(gulp.dest('./out'));
 });
 
+gulp.task('scripts', function(){
+    return gulp.src('./scripts/**')
+        .pipe(gulp.dest('./out/scripts'))
+});
+
 gulp.task('watch', function() {
     runServer();
     gulp.watch('./static/**', ['static']);
     gulp.watch('./css/*.styl', ['stylus']);
+    gulp.watch('./scripts/**/*.js', ['scripts'])
     gulp.watch(['./*.jade', './components/*.jade', './info.yaml'], ['html']);
 });
 

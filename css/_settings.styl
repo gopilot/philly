@@ -46,3 +46,75 @@ pie-path = '/pie.htc'
 column-width = 60px
 gutter-width = 20px
 columns = 12
+
+@import 'nib'
+
+@font-face {
+    font-family: 'DIN';
+    font-weight: 200;
+    src: url('../font/dinl____.eot');
+    src: url('../font/dinl____.eot') format('embedded-opentype'),
+         url('../font/dinl____.woff') format('woff'),
+         url('../font/dinl____.ttf') format('truetype'),
+         url('../font/dinl____.svg#DINLightRegular') format('svg');
+}
+
+
+@font-face {
+    font-family: 'DIN';
+    font-weight: 400;
+    src: url('../font/dinm____.eot');
+    src: url('../font/dinm____.eot') format('embedded-opentype'),
+         url('../font/dinm____.woff') format('woff'),
+         url('../font/dinm____.ttf') format('truetype'),
+         url('../font/dinm____.svg#DINMediumRegular') format('svg');
+}
+    
+@font-face {
+    font-family: 'Clarendon';
+    src: url('../font/clarendonltstd-webfont.eot');
+    src: url('../font/clarendonltstd-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/clarendonltstd-webfont.woff') format('woff'),
+         url('../font/clarendonltstd-webfont.ttf') format('truetype'),
+         url('../font/clarendonltstd-webfont.svg#clarendon_lt_stdregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+// TODO create layout helpers file
+
+// set up the grid
+// numcols = 12
+// for cols in (1..numcols)
+//     .push-{cols}
+//         left (cols/numcols) * 100%
+//     .pull-{cols}
+//         right (cols/numcols) * 100%
+//     .span-{cols}
+//         position relative
+//         width (cols/numcols) * 100%
+//         .align-corners > & + [class*="span-"]
+//             margin-left (cols/numcols) * 100%
+
+// .align-top
+//     vertical-align top
+
+// TODO create separate settings file
+// control as much of appearance as is reasonable through the config settings
+// to allow for customization per-event without having to dig into the actual css
+colors = {
+    blue: #1C9BE6
+    slate: #212223
+}
+base-font-size = 16px
+sizes = {
+    small: .76rem
+    base: 1rem
+    medium: 1.2rem
+    large: 1.5rem
+    larger: 1.8rem
+}
+
+// for size in sizes
+//     .typ-{size}
+//         font-size: sizes[size]
