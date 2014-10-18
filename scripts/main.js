@@ -228,7 +228,6 @@ jQuery(function($){
 
 					$.postJSON('http://api.gopilot.org/events/'+PILOT_EVENT_ID+'/register', data,
 					function(data){
-						removeTimeout
 						console.log("Done!", data);
 						$('.button.js-complete').attr('href', '/complete.html?token='+data.token)
 						$('.js-submit').addClass('success');
