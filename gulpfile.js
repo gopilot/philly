@@ -42,6 +42,11 @@ gulp.task('stylus', function () {
             .pipe(stylus({use: ['nib']}))
             .pipe(gulp.dest('./out/css'))
     )
+    promises.push(
+        gulp.src('./css/confirmation.styl')
+            .pipe(stylus({use: ['nib']}))
+            .pipe(gulp.dest('./out/css'))
+    )
     return when.all(promises)
 });
 
@@ -59,6 +64,13 @@ gulp.task('html', function() {
     );
     promises.push(
         gulp.src('./complete.jade')
+            .pipe(jade({
+                locals: locals
+            }))
+            .pipe(gulp.dest('./out'))
+    );
+    promises.push(
+        gulp.src('./confirmation.jade')
             .pipe(jade({
                 locals: locals
             }))

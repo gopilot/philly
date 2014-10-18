@@ -139,7 +139,6 @@ body {
   font-weight: 200;
   font-size: 22px;
   line-height: 1.4;
-  background-image: url("/img/confirmation-background.jpg");
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
@@ -271,9 +270,11 @@ header {
 #title {
   margin: auto;
   margin-bottom: 15px;
+  margin-top: 20px;
   padding-top: 0px;
-  font-size: 60px;
-  color: #fff;
+  font-size: 2rem;
+  color: #272727;
+  font-family: DIN;
 }
 #subtitle {
   font-size: 50px;
@@ -284,12 +285,18 @@ header {
   margin-top: 50px;
   font-weight: 400;
 }
-#actions #list-title {
-  margin-left: 20px;
-}
 #actions li {
-  font-weight: 200;
+  font-size: 22px;
+  color: #147cba;
   margin-left: 10%;
+}
+#list-title {
+  margin-left: 90px;
+  color: #272727;
+  font-size: 25px;
+  font-family: DIN;
+  margin-bottom: -20px;
+  font-weight: bold;
 }
 .button {
   display: inline-block;
@@ -337,6 +344,10 @@ header {
   margin: auto;
   width: auto;
   text-align: center;
+}
+.button-container a {
+  -webkit-box-shadow: 0px 4px 4px #808080;
+  box-shadow: 0px 4px 4px #808080;
 }
 #waiverButton {
   background-color: #535353;
