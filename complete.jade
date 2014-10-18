@@ -7,7 +7,7 @@ html
 		link(rel='stylesheet', href='font/icon-7/css/icons.css')
 		link(rel='stylesheet', href='css/complete.css')
 	body
-		.error-container(style="display:none;")
+		.error-container(style="")
 			.centered
 				h3.error-title Uh oh... Something went wrong.
 				.error-subject Send us an email at
@@ -72,7 +72,7 @@ html
 						.toggle-button(value="0") No
 				.input-container.half.half-sm.experience.hidden
 					.input-label How many years?
-					input(type="text" pattern="[0-9]*" data-validation="experience" name="experience_years" data-error="The years of programming experience is invalid.")
+					input(type="text" pattern="[0-9]*" name="experience_years" data-error="The years of programming experience is invalid.")
 					i.status
 				.input-container.tshirt
 					.input-label T-shirt size
@@ -85,10 +85,10 @@ html
 						.toggle-button(value="large") Large
 				.input-container.diet
 					.input-label Please list any dietary restrictions:
-					textarea(placeholder="(optional)").js-dietary
+					textarea(name="dietary" placeholder="(optional)").js-dietary
 				.input-container.other
 					.input-label Anything else you want us to know?
-					textarea(placeholder="(optional)").js-other
+					textarea(name="event_notes" placeholder="(optional)").js-other
 				.submit-button-container
 					a.button.large.blue.js-submit Complete Registration
 				.error-messages

@@ -11,8 +11,7 @@ jQuery(function($){
 		wait: 750
 	});
 
-	var user = {};
-	var session;
+	var session, user_id, user;
 	$.get('https://api.gopilot.org/users/find_incomplete/'+getParameter('token'), function(data, status){
 		if(!data || !data.session || !data.user){
 			$('.error-container').addClass("shown")
@@ -27,6 +26,7 @@ jQuery(function($){
 		};
 		$('.js-name').val( user.name );
 		$('.js-email').val( user.email );
+		user_id = user.id;
 	}).error(function(data){
 		$('.error-container').addClass("shown")
 		return console.log("ERROR", data)
@@ -36,23 +36,21 @@ jQuery(function($){
 		"name": /^[a-zA-Z\\s]+ /i,
 		"phone": /[0-9-\(\)]{10,12}/,
 		"email": /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b/i,
-		"experience": /[0-9]{1,2}/,
+		"experience": /[0-9]*/,
 		"date": /[0-9]{2}\/[0-9]{2}\/[0-9]{2}/,
 		"password": /.{8,}/
 	}
 
 	function validateInput(elem){
 		$(elem).siblings('.status').removeClass('pe-7s-check pe-7s-close-circle');
-		$('.error-messages .message.'+field).remove()
 		if( $(elem).val().length > 0) {
 			var type = $(elem).data('validation');
 			var field = $(elem).attr('name');
 			console.log("Checking", $(elem).val(), validators[ type ], $(elem).val().match( validators[ type ] ))
 			if( $(elem).val().match( validators[ type ] ) ){
-				user[ field ] = $(elem).val()
+				
 				$(elem).siblings('.status').addClass('pe-7s-check');
 			}else{
-				user[ field ] = null;
 				$(elem).siblings('.status').addClass('pe-7s-close-circle');
 				
 				if( $('.error-messages .message.'+field).length )
@@ -60,9 +58,8 @@ jQuery(function($){
 				else
 					$('.error-messages').append("<div class='message "+field+"'>"+$(elem).data("error")+"</div>");
 			}
-		}else{
-			user[ field ] = null;
 		}
+		$('.error-messages .message.'+field).remove()
 	}
 
 	validateInput( 'input.js-name' );
@@ -81,8 +78,6 @@ jQuery(function($){
 		$(this).siblings().removeClass('selected');
 		$(this).toggleClass('selected');
 
-		user[ field ] = $(this).attr('value');
-
 		if( field == "has_experience"){
 			if( $(this).attr('value') == "1"){
 				console.log("remove hidden")
@@ -96,28 +91,27 @@ jQuery(function($){
 		$('.error-messages .message.'+field).remove()
 	});
 
-	function printFieldErrors(){
+	function makeUser(){
+		var user = {};
 		$('.toggle-group').each(function(index){
 			console.log(index);
 			var field = $(this).attr('name');
 			if( $(this).children(".selected").length ){
-				// No worries
+				user[ field ] = $(this).children(".selected").attr('value');
 			}else{
-				console.log( field ) 
 				if( $('.error-messages .message.'+field).length )
 					$('.error-messages .message.'+field).text( $(this).data("error") );
 				else
 					$('.error-messages').append("<div class='message "+field+"'>"+$(this).data("error")+"</div>");
 			}
 		});	
-		$('input[required], textarea[required]').each(function(index){
-			console.log(index);
+		$('input, textarea').each(function(index){
 			var field = $(this).attr('name');
 			var type = $(this).data('validation')
 
-			if( $(this).val().match( validators[ type ] ) ){
-				user[ field ] = $(this).val()
+			if( $(this).val().match( validators[ type ] ) || ! $(this).attr('required') ){
 				$(this).siblings('.status').addClass('pe-7s-check');
+				user[ field ] = $(this).val()
 			}else{
 				$(this).siblings('.status').addClass('pe-7s-close-circle');
 				if( $('.error-messages .message.'+field).length )
@@ -126,10 +120,15 @@ jQuery(function($){
 					$('.error-messages').append("<div class='message "+field+"'>"+$(this).data("error")+"</div>");
 			}
 		});
+
+		user[ 'notes' ] = {}
+		user[ 'notes' ][PILOT_EVENT_ID] = user[ 'event_notes' ]
+		delete user[ 'event_notes' ];
+
+		return user;
 	}
 
 	function checkFields(user){
-		printFieldErrors();
 		return user[ 'name' ] &&
 				user['email'] &&
 				user['gender'] &&
@@ -149,7 +148,7 @@ jQuery(function($){
 
 	function putUser( user ){
 		$.ajax({
-			url: "https://api.gopilot.org/users/"+user.id,
+			url: "https://api.gopilot.org/users/"+user_id,
 			data: JSON.stringify(user),
 			type: 'PUT',
 			contentType: "application/json",
@@ -162,13 +161,14 @@ jQuery(function($){
 	}
 
 	$('.js-submit').on('click', function(evt){
+		$('.error-messages').children().remove()
+		
+		user = makeUser();
+
 		if( checkFields( user )  ){
 			delete user[ 'confirm_password' ]
-			user[ 'dietary' ] = $('.js-dietary').val();
-			user[ 'notes' ] = {}
-			user[ 'notes' ][PILOT_EVENT_ID] = $('.js-other').val()
 			user['has_experience'] = user['has_experience'] == "1"
-			
+
 			console.log(user);
 			putUser( user )
 		}else{

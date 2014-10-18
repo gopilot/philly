@@ -18,7 +18,6 @@ jQuery(function($){
 	        'dataType': 'json',
 	        'success': onSuccess,
 	        'error': function(jqxhr){
-	        	var json = JSON.parse(jqxhr.responseText);
 	        	return onError(json, jqxhr.statusCode());
 	        }
 	    });
