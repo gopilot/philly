@@ -130,9 +130,47 @@ textarea:focus {
   -ms-filter: none;
   filter: none;
 }
-span.optional {
+span.tiny {
   color: #777a7e;
   font-size: 0.76rem;
+}
+.error-container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #212223;
+  color: #fff;
+  z-index: 100;
+  display: none;
+}
+.error-container.shown {
+  display: block;
+}
+.error-container .centered {
+  position: absolute;
+  width: 500px;
+  max-width: 500px;
+  height: 200px;
+  z-index: 15;
+  top: 50%;
+  left: 50%;
+  margin: -100px 0 0 -200px;
+}
+.error-container .centered .error-title {
+  font-weight: 200;
+  font-size: 2rem;
+}
+.error-container .centered .email-link {
+  text-decoration: none;
+  color: #1c9be6;
+  padding-bottom: 2px;
+}
+.error-container .centered .email-link:hover {
+  border-bottom: 1px solid #1c9be6;
 }
 .content {
   display: block;
@@ -187,6 +225,12 @@ span.optional {
 }
 .content form.complete .input-container.half.half-lg {
   width: 59%;
+}
+.content form.complete .input-container.half i.status {
+  position: absolute;
+  top: 32px;
+  bottom: 2px;
+  left: 144px;
 }
 .content form.complete .input-container.hidden {
   display: none;

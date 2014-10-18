@@ -31,52 +31,19 @@ gulp.task('deploy', ['stylus', 'html', 'static', 'scripts'], function () {
 
 // compile css
 gulp.task('stylus', function () {
-    var promises = []
-    promises.push(
-        gulp.src('./css/master.styl')
-            .pipe(stylus({use: ['nib']}))
-            .pipe(gulp.dest('./out/css'))
-    )
-    promises.push(
-        gulp.src('./css/complete.styl')
-            .pipe(stylus({use: ['nib']}))
-            .pipe(gulp.dest('./out/css'))
-    )
-    promises.push(
-        gulp.src('./css/confirmation.styl')
-            .pipe(stylus({use: ['nib']}))
-            .pipe(gulp.dest('./out/css'))
-    )
-    return when.all(promises)
+    return gulp.src('./css/[!_]*.styl')
+        .pipe(stylus({use: ['nib']}))
+        .pipe(gulp.dest('./out/css'))
 });
 
 // compile our HTML
 gulp.task('html', function() {
     var locals = jsyaml.load(fs.readFileSync('./info.yaml', 'utf8')); // load yaml
-    var promises = []
-    
-    promises.push(
-        gulp.src('./index.jade')
-            .pipe(jade({
-                locals: locals
-            }))
-            .pipe(gulp.dest('./out'))
-    );
-    promises.push(
-        gulp.src('./complete.jade')
-            .pipe(jade({
-                locals: locals
-            }))
-            .pipe(gulp.dest('./out'))
-    );
-    promises.push(
-        gulp.src('./confirmation.jade')
-            .pipe(jade({
-                locals: locals
-            }))
-            .pipe(gulp.dest('./out'))
-    );
-    return when.all(promises)
+    return gulp.src('./[!_]*.jade')
+        .pipe(jade({
+            locals: locals
+        }))
+        .pipe(gulp.dest('./out'))
 });
 
 gulp.task('default', ['stylus', 'html', 'scripts', 'static'])

@@ -1,35 +1,7 @@
-function getParameter(name) {
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-        results = regex.exec(location.search);
-    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-}
-
 jQuery(function($){
 	$('input, textarea').typeWatch({
 		event: 'typingDone',
 		wait: 750
-	});
-
-	var user = {};
-	var session;
-	$.get('http://api.gopilot.org/users/find_incomplete/'+getParameter('token'), function(data, status){
-		if(!data || !data.session || !data.user){
-			$('.error-container').addClass("shown")
-			return console.log("ERROR", data)
-		}
-		document.cookie = "session="+data.session;
-		session = data.session;
-		user = {
-			name: data.user.name,
-			email: data.user.email,
-			id: data.user.id
-		};
-		$('.js-name').val( user.name );
-		$('.js-email').val( user.email );
-	}).error(function(data){
-		$('.error-container').addClass("shown")
-		return console.log("ERROR", data)
 	});
 
 	var validators = {
@@ -40,6 +12,8 @@ jQuery(function($){
 		"date": /[0-9]{2}\/[0-9]{2}\/[0-9]{2}/,
 		"password": /.{8,}/
 	}
+
+	var user = {};
 
 	function validateInput(elem){
 		$(elem).siblings('.status').removeClass('pe-7s-check pe-7s-close-circle')
@@ -56,7 +30,7 @@ jQuery(function($){
 			}
 			
 			if(field == "confirm_password" && user['password'] && $(elem).val() != user['password']){
-				$(elem).siblings('.status').removeClass('pe-7s-close-circle');
+				$(elem).siblings('.status').removeClass('pe-7s-check');
 				$(elem).siblings('.status').addClass('pe-7s-close-circle');
 			}
 		}else{
@@ -64,13 +38,10 @@ jQuery(function($){
 		}
 	}
 
-	validateInput( 'input.js-name' );
-	validateInput( 'input.js-email' );
-
-	$('input[required]').on('typingDone', function(evt){
+	$('input[required], textarea[required]').on('typingDone', function(evt){
 		validateInput(this);
 	});
-	$('input[required]').on('blur', function(evt){
+	$('input[required], textarea[required]').on('blur', function(evt){
 		validateInput(this);
 	});
 
@@ -85,11 +56,11 @@ jQuery(function($){
 		if( field == "has_experience"){
 			if( $(this).attr('value') == "1"){
 				console.log("remove hidden")
-				$('.input-container.experience').removeClass('hidden');
+				$('.input-container.skills').removeClass('hidden');
 			}
 			else{
 				console.log("add hidden", $(this).attr('value'))
-				$('.input-container.experience').addClass('hidden')
+				$('.input-container.skills').addClass('hidden')
 			}
 		}
 		
@@ -99,28 +70,24 @@ jQuery(function($){
 		return user[ 'name' ] &&
 				user['email'] &&
 				user['gender'] &&
-				user['birth_date'] &&
-				user['grade'] &&
 				user['phone'] &&
-				user['emergency_name'] &&
-				user['emergency_email'] &&
-				user['emergency_phone'] &&
-				user['emergency_email'] &&
+				user['password'] &&
+				user['title'] &&
+				user['company'] &&
+				user['profiles'] &&
 				user['has_experience'] &&
-				(user['has_experience']=="1" ? user['experience_years'] : true) &&
+				(user['has_experience']=="1" ? user['skills'] : true) &&
 				user['shirt_type'] &&
-				user['shirt_size'] &&
-				user['password'];
+				user['shirt_size'];
 	}
 
-	function putUser( user ){
+	function register( user ){
 		$.ajax({
-			url: "http://api.gopilot.org/users/"+user.id,
+			url: "http://api.gopilot.org/events/"+PILOT_EVENT_ID+"/register/mentor",
 			data: JSON.stringify(user),
-			type: 'PUT',
+			type: 'POST',
 			contentType: "application/json",
-			dataType: "json",
-			beforeSend: function(xhr){xhr.setRequestHeader('session', session);},
+			dataType: "json"
 		}).done(function( data ){
 			console.log("DONE!!!", data);
 			window.location = "/confirmation.html"
@@ -130,13 +97,14 @@ jQuery(function($){
 	$('.js-submit').on('click', function(evt){
 		if( checkFields( user )  ){
 			delete user[ 'confirm_password' ]
+
 			user[ 'dietary' ] = $('.js-dietary').val();
 			user[ 'notes' ] = {}
 			user[ 'notes' ][PILOT_EVENT_ID] = $('.js-other').val()
 			user['has_experience'] = user['has_experience'] == "1"
 			
 			console.log(user);
-			putUser( user )
+			register( user )
 		}else{
 			console.log("error", user)
 			$('i.status:not(.pe-7s-check)').addClass('pe-7s-close-circle');	
