@@ -83,7 +83,7 @@ jQuery(function($){
 
 	function register( user ){
 		$.ajax({
-			url: "http://api.gopilot.org/events/"+PILOT_EVENT_ID+"/register/mentor",
+			url: "https://api.gopilot.org/events/"+PILOT_EVENT_ID+"/register/mentor",
 			data: JSON.stringify(user),
 			type: 'POST',
 			contentType: "application/json",

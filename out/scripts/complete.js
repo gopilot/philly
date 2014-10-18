@@ -13,7 +13,7 @@ jQuery(function($){
 
 	var user = {};
 	var session;
-	$.get('http://api.gopilot.org/users/find_incomplete/'+getParameter('token'), function(data, status){
+	$.get('https://api.gopilot.org/users/find_incomplete/'+getParameter('token'), function(data, status){
 		if(!data || !data.session || !data.user){
 			$('.error-container').addClass("shown")
 			return console.log("ERROR", data)
@@ -149,7 +149,7 @@ jQuery(function($){
 
 	function putUser( user ){
 		$.ajax({
-			url: "http://api.gopilot.org/users/"+user.id,
+			url: "https://api.gopilot.org/users/"+user.id,
 			data: JSON.stringify(user),
 			type: 'PUT',
 			contentType: "application/json",

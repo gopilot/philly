@@ -226,7 +226,7 @@ jQuery(function($){
 						$('.input-error-text.cc').addClass('show');
 					}, 10000);
 
-					$.postJSON('http://api.gopilot.org/events/'+PILOT_EVENT_ID+'/register', data,
+					$.postJSON('https://api.gopilot.org/events/'+PILOT_EVENT_ID+'/register', data,
 					function(data){
 						console.log("Done!", data);
 						$('.button.js-complete').attr('href', '/complete.html?token='+data.token)
