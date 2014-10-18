@@ -145,7 +145,7 @@ jQuery(function($){
 				user['shirt_size'] &&
 				user['password'];
 	}
-
+	var submitTimer;
 	function putUser( user ){
 		$.ajax({
 			url: "https://api.gopilot.org/users/"+user_id,
@@ -154,23 +154,28 @@ jQuery(function($){
 			contentType: "application/json",
 			dataType: "json",
 			beforeSend: function(xhr){xhr.setRequestHeader('session', session);},
+		}).error(function( err ){
+			console.log("ERROR!", err);
+			$('.error-container').addClass("shown");
 		}).done(function( data ){
 			console.log("DONE!!!", data);
+			clearTimeout(submitTimer);
 			window.location = "/confirmation.html"
 		});
 	}
 
 	$('.js-submit').on('click', function(evt){
 		$('.error-messages').children().remove()
-		
+		submitTimer = setTimeout(function(){
+			$('.error-container').addClass("shown");
+		}, 10*1000);
 		user = makeUser();
-
 		if( checkFields( user )  ){
 			delete user[ 'confirm_password' ]
 			user['has_experience'] = user['has_experience'] == "1"
 
 			console.log(user);
-			putUser( user )
+			//putUser( user )
 		}else{
 			console.log("error", user)
 			$('i.status:not(.pe-7s-check)').addClass('pe-7s-close-circle');
