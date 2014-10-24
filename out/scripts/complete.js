@@ -154,6 +154,9 @@ jQuery(function($){
 			contentType: "application/json",
 			dataType: "json",
 			beforeSend: function(xhr){xhr.setRequestHeader('session', session);},
+		}).error(function( err ){
+			console.log("ERROR!", err);
+			$('.error-container').addClass("shown");
 		}).done(function( data ){
 			console.log("DONE!!!", data);
 			clearTimeout(submitTimer);
@@ -172,7 +175,7 @@ jQuery(function($){
 			user['has_experience'] = user['has_experience'] == "1"
 
 			console.log(user);
-			//putUser( user )
+			putUser( user )
 		}else{
 			console.log("error", user)
 			$('i.status:not(.pe-7s-check)').addClass('pe-7s-close-circle');
