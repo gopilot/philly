@@ -84,7 +84,7 @@ html
                 nav.box.span-7.align-top.mobile-full
                     a(href="#about") About
                     a(href="#sponsors") Sponsors
-                    //a(href="#schedule") Schedule
+                    a(href="#schedule") Schedule
                     a(href="#faq") FAQ
                 .box.copy.slate.span-5.mobile-full
                     p “I came to this event not knowing what to expect. By the end I had a new group of friends and an end product that I never thought possible, let alone able to be done in just a few hours.” 
@@ -125,15 +125,16 @@ html
                 .sponsors-row
                     .span-6.mobile-6.push-3
                         a(href="http://www.streetcodeacademy.org/"): img(src="/img/streetcode.png")
-        //
+        
             .section.schedule.large#schedule
                 .box.title.blue.span-3
                     h4 Schedule
-                    each description, time in schedule
-                        .row
-                            .box.span-3.typ-right
-                               h6= time
-                            .box.span-9= description
+                    
+                each description, time in schedule
+                    .row
+                        .box.span-3.typ-right
+                           h6= time
+                        .box.span-9= description
 
 
         .section.align-corners.faq#faq
