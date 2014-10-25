@@ -123,6 +123,9 @@ jQuery(function($){
 
 		user[ 'notes' ] = {}
 		user[ 'notes' ][PILOT_EVENT_ID] = user[ 'event_notes' ]
+
+		user[ 'has_experience' ] = user['has_experience'] === "1" || (user['has_experience'] && user['has_experience'].toLowerCase() == "false");
+
 		delete user[ 'event_notes' ];
 
 		return user;
@@ -139,8 +142,8 @@ jQuery(function($){
 				user['emergency_email'] &&
 				user['emergency_phone'] &&
 				user['emergency_email'] &&
-				user['has_experience'] &&
-				(user['has_experience']=="1" ? user['experience_years'] : true) &&
+				(user['has_experience'] || user['has_experience'] === false) &&
+				(user['has_experience'] ? user['experience_years'] : true) &&
 				user['shirt_type'] &&
 				user['shirt_size'] &&
 				user['password'];
@@ -172,12 +175,12 @@ jQuery(function($){
 		user = makeUser();
 		if( checkFields( user )  ){
 			delete user[ 'confirm_password' ]
-			user['has_experience'] = user['has_experience'] == "1"
 
 			console.log(user);
 			putUser( user )
 		}else{
-			console.log("error", user)
+			console.log("error", user);
+			clearTimeout(submitTimer);
 			$('i.status:not(.pe-7s-check)').addClass('pe-7s-close-circle');
 		}
 	});
