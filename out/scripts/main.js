@@ -10,6 +10,7 @@ jQuery(function($){
 	Stripe.setPublishableKey('pk_live_BXRjo7MBwBvPSNM1338ZQVj3');
 
 	$.postJSON = function(url, data, onSuccess, onError) {
+		console.log("POSTing ", data)
 	    return jQuery.ajax({
 	        'type': 'POST',
 	        'url': url,
@@ -18,7 +19,9 @@ jQuery(function($){
 	        'dataType': 'json',
 	        'success': onSuccess,
 	        'error': function(jqxhr){
-	        	return onError(json, jqxhr.statusCode());
+	        	console.log("error", jqxhr);
+	        	console.log("error text", jqxhr.responseText)
+	        	return onError(JSON.parse(jqxhr.responseText), jqxhr.statusCode());
 	        }
 	    });
 	};
@@ -53,14 +56,16 @@ jQuery(function($){
 	$('.show-discount').on('click', function(){
 		var parent = $('input.discount').parent()
 		if( parent.hasClass('hidden') ){
-			$('.modal-content').height( $('.modal-content').height()+50 )
+			$('.modal-content').addClass('show-discount')
 			parent.removeClass('hidden');
 			$('input.discount').focus();
 			$(this).text('Hide discount field');
 		}else{
 			parent.addClass('hidden');
 			$(this).text('Have a discount code?');
-			$('.modal-content').height( $('.modal-content').height()-50 )
+			$('.modal-content').removeClass('show-discount');
+			$('.register-form').removeClass("no-credit-card"); // In case they already had a discount earlier
+			$(this).val("");
 		}
 	});
 
@@ -83,13 +88,13 @@ jQuery(function($){
 	var cardType;
 	var nameOk = emailOk = numOk = cvcOk = expOk = false;
 	function checkSubmit(){
-		if(nameOk && emailOk && numOk && cvcOk && expOk){
+		if(nameOk && emailOk && ( (numOk && cvcOk && expOk) || $('.modal-content').hasClass('no-credit-card') )){
 			submit.removeClass('disabled');
 			$('.input-error-text').removeClass('show');
 		}else
 			submit.addClass('disabled');
 		
-		return nameOk && emailOk && numOk && cvcOk && expOk;
+		return nameOk && emailOk && ( (numOk && cvcOk && expOk) || $('.modal-content').hasClass('no-credit-card') );
 	}
 	$('input.cc-num').on('keyup', function(evt){
 		$(this).parent().removeClass('empty error');
@@ -163,13 +168,51 @@ jQuery(function($){
 			$(this).parent().addClass('error');
 	});
 	$('input.discount').on('typingDone', function(evt){
+		var self = this;
 		if( $(this).hasClass('hidden') ){
 			$(this).val();
 			$(this).parent().addClass('empty');
 			$(this).parent().removeClass('error');
+			$('.input-error-text.discount').removeClass('show');
+			$('.register-form').removeClass("no-credit-card");
 			return;
 		}
 		$(this).parent().removeClass('empty');
+
+		if( $(this).val() == ""){
+			$(this).parent().addClass('empty');
+			// Abort
+			return;
+		}
+
+		$.get("https://api.gopilot.org/events/"+PILOT_EVENT_ID+"/discounts/" + $(this).val())
+		.error(function(data, status){
+			console.log("Error", data, status);
+			$('.input-error-text.discount').removeClass('show');
+			$('.register-form').removeClass("no-credit-card");
+			$(self).parent().addClass('error');
+		})
+		.done(function(data, status){
+			console.log(data, status)
+			if(data.active){
+				$(self).parent().removeClass('error');
+				$(".js-total").text(" $" + (PILOT_EVENT_PRICE - data.amount) );
+				$('.input-error-text.discount').text("$"+data.amount+" ("+data.title+")")
+					.addClass('green show');
+				if(PILOT_EVENT_PRICE <= data.amount){
+					$('.modal-content').addClass("no-credit-card");
+				}else{
+					$('.modal-content').removeClass("no-credit-card");
+				}
+			}else{
+				console.log("adding discount error", data, status)
+				$(self).parent().addClass('error');
+				$('.modal-content').removeClass("no-credit-card");
+				$('.input-error-text.discount').removeClass('green');
+				$('.input-error-text.discount').text("Discount Expired");
+				$('.input-error-text.discount').addClass('show');
+			}
+		});
 	});
 
 
@@ -178,100 +221,111 @@ jQuery(function($){
 	/* Form Submission         		  		    */
 	/*											*/
 	/********************************************/
+	function register(stripe_id){
+		$('js-submit').html('<i class="pe-7s-config spin"></i>');
+		var data = {
+			user: {
+				name: $('input.name').val(),
+				email: $('input.email').val(), 
+			},
+			discount: $('input.discount').val() || false
+		}
+		if(stripe_id) data['stripe_token'] = stripe_id
+
+		var requestTimeout = setTimeout(function(){
+			$('.js-submit').addClass('fail');
+			$('.js-submit').html('<i class="pe-7s-close-circle"></i>');
+			setTimeout(function(){
+				$('.js-submit').html('Register'); // Temp, until we show a page after the request succeeds
+				$('.js-submit').removeClass('has-icon');
+				$('.js-submit').removeClass('fail');
+			}, 1500)
+			$('.input-error-text.cc').text("Uh oh, something's wrong... Try again in a little bit.");
+			$('.input-error-text.cc').addClass('show');
+		}, 10000);
+
+		$.postJSON('https://api.gopilot.org/events/'+PILOT_EVENT_ID+'/register', data,
+		function(data){
+			console.log("Done!", data);
+			$('.button.js-complete').attr('href', '/complete.html?token='+data.token)
+			$('.js-submit').addClass('success');
+			$('.js-submit').html('<i class="pe-7s-check"></i>');
+			setTimeout(function(){
+				$('.modal-content').removeClass('step-1');
+				$('.modal-content').addClass('step-2');
+			}, 1500)
+		}, 
+		function(err, status){
+			console.log(err);
+			clearTimeout(requestTimeout)
+			$('.js-submit').addClass('fail');
+			$('.js-submit').html('<i class="pe-7s-close-circle"></i>');
+			setTimeout(function(){
+				$('.js-submit').html('Register'); // Temp, until we show a page after the request succeeds
+				$('.js-submit').removeClass('has-icon');
+				$('.js-submit').removeClass('fail')
+			}, 1500)
+
+			var block = (err.reason == "name") ? "name" : 
+						(err.reason == "email") ? "email" : "cc";
+				
+			$('.input-error-text.'+block).text(err.message);
+			$('.input-error-text.'+block).addClass('show');
+
+			var input = false;
+			if(block != "cc")
+				input = block;
+			else if(err.reason == "number")
+				input = "cc-num";
+			else if(err.reason == "cvc")
+				input = "cc-cvc";
+			else if(err.reason == "exp_month" || err.reason == "exp_year")
+				input = "cc-exp";
+			else if(err.reason == "charge" || err.reason == "customer")
+				input = "cc-num"
+
+			if(input)
+				$("input."+input).parent().addClass('error');
+
+		});
+	}
+
 
 	$('.js-submit').on('click', function(ev){
 		ev.preventDefault();
 
 		$('input.name').trigger('typingDone');
 		$('input.email').trigger('typingDone');
-		$('input.cc-num').trigger('blur');
-		$('input.cc-cvc').trigger('typingDone');
-		$('input.cc-exp').trigger('typingDone');
+
+		if(! $('.modal-content').hasClass('no-credit-card') ){
+			$('input.cc-num').trigger('blur');
+			$('input.cc-cvc').trigger('typingDone');
+			$('input.cc-exp').trigger('typingDone');
+		}
 		if( ! $('input.discount').hasClass('hidden') )
 			$('input.discount').trigger('typingDone');
 
 		if( checkSubmit() ){
 			var expDate = $('input.cc-exp').payment('cardExpiryVal');
 
-			var stripeData = {
-			  number: $('input.cc-num').val(),
-			  cvc: $('input.cc-cvc').val(),
-			  exp_month: expDate.month,
-			  exp_year: expDate.year
-			}
-			Stripe.card.createToken(stripeData, function(status, response){
-				if(response.error){
-					console.log("Error!", response.error);
-				}else{
-					console.log("Card", response.card)
-					var data = {
-						user: {
-							name: $('input.name').val(),
-							email: $('input.email').val(), 
-						},
-						stripe_token: response.id,
-						discount: $('input.discount').val() || false
-					}
-
-					var requestTimeout = setTimeout(function(){
-						$('.js-submit').addClass('fail');
-						$('.js-submit').html('<i class="pe-7s-close-circle"></i>');
-						setTimeout(function(){
-							$('.js-submit').html('Register'); // Temp, until we show a page after the request succeeds
-							$('.js-submit').removeClass('has-icon');
-							$('.js-submit').removeClass('fail');
-						}, 1500)
-						$('.input-error-text.cc').text("Uh oh, something's wrong... Try again in a little bit.");
-						$('.input-error-text.cc').addClass('show');
-					}, 10000);
-
-					$.postJSON('https://api.gopilot.org/events/'+PILOT_EVENT_ID+'/register', data,
-					function(data){
-						console.log("Done!", data);
-						$('.button.js-complete').attr('href', '/complete.html?token='+data.token)
-						$('.js-submit').addClass('success');
-						$('.js-submit').html('<i class="pe-7s-check"></i>');
-						setTimeout(function(){
-							$('.modal-content').removeClass('step-1');
-							$('.modal-content').addClass('step-2');
-						}, 1500)
-					}, 
-					function(err, status){
-						console.log(err);
-						clearTimeout(requestTimeout)
-						$('.js-submit').addClass('fail');
-						$('.js-submit').html('<i class="pe-7s-close-circle"></i>');
-						setTimeout(function(){
-							$('.js-submit').html('Register'); // Temp, until we show a page after the request succeeds
-							$('.js-submit').removeClass('has-icon');
-							$('.js-submit').removeClass('fail')
-						}, 1500)
-
-						var block = (err.reason == "name") ? "name" : 
-									(err.reason == "email") ? "email" : "cc";
-	 					
-						$('.input-error-text.'+block).text(err.message);
-						$('.input-error-text.'+block).addClass('show');
-
-						var input = false;
-						if(block != "cc")
-							input = block;
-						else if(err.reason == "number")
-							input = "cc-num";
-						else if(err.reason == "cvc")
-							input = "cc-cvc";
-						else if(err.reason == "exp_month" || err.reason == "exp_year")
-							input = "cc-exp";
-						else if(err.reason == "charge" || err.reason == "customer")
-							input = "cc-num"
-
-						if(input)
-							$("input."+input).parent().addClass('error');
-
-					});
-					$('js-submit').html('<i class="pe-7s-config spin"></i>');
+			if( $('.modal-content').hasClass('no-credit-card') ){
+				register();
+			}else{
+				var stripeData = {
+				  number: $('input.cc-num').val(),
+				  cvc: $('input.cc-cvc').val(),
+				  exp_month: expDate.month,
+				  exp_year: expDate.year
 				}
-			});
+				Stripe.card.createToken(stripeData, function(status, response){
+					if(response.error){
+						console.log("Error!", response.error);
+					}else{
+						console.log("Card", response.card)
+						register(response.id);
+					}
+				});
+			}
 			$('.js-submit').addClass('has-icon')
 			$('.js-submit').html('<i class="pe-7s-config spin"></i>');
 		}

@@ -73,6 +73,17 @@
             .register-step-2
                 left 0 
 
+        &.no-credit-card
+            height 380px !important
+            .register-form
+                .input-container.credit-card
+                    display none
+                .charge-text
+                    display none
+                    
+        &.show-discount
+            height 500px
+
         &.slide-left
             right 100%
 
@@ -100,8 +111,8 @@
             &:hover, &:active
                 color darken(white, 45%)
 
-        .register-form
-            
+        .register-form        
+
             .charge-text
                 margin 20px auto
 
@@ -135,6 +146,9 @@
                 color lighten(red, 30%)
                 &.show
                     display block
+                &.green
+                    color lighten(green, 15%)
+                    font-size 16px
 
             .input-container
                 display block

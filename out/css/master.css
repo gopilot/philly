@@ -724,6 +724,18 @@ input::-webkit-inner-spin-button {
 .modal .modal-content.step-2 .register-step-2 {
   left: 0;
 }
+.modal .modal-content.no-credit-card {
+  height: 380px !important;
+}
+.modal .modal-content.no-credit-card .register-form .input-container.credit-card {
+  display: none;
+}
+.modal .modal-content.no-credit-card .register-form .charge-text {
+  display: none;
+}
+.modal .modal-content.show-discount {
+  height: 500px;
+}
 .modal .modal-content.slide-left {
   right: 100%;
 }
@@ -792,6 +804,10 @@ input::-webkit-inner-spin-button {
 }
 .modal .modal-content .register-form .input-error-text.show {
   display: block;
+}
+.modal .modal-content .register-form .input-error-text.green {
+  color: #00b900;
+  font-size: 16px;
 }
 .modal .modal-content .register-form .input-container {
   display: block;

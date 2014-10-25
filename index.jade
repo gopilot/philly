@@ -49,6 +49,7 @@ html
                             i.pe-7s-ticket.left
                             i.pe-7s-check.input-check.right
                             i.pe-7s-close-circle.input-error.right
+                        .input-error-text.discount
 
                         .charge-text
                             | Your credit card will be charged
@@ -56,7 +57,7 @@ html
                         .button-container
                             a.button.large.js-submit(action="submit") Register
 
-                    //- a.show-discount Have a discount code?
+                    a.show-discount Have a discount code?
                 .register-step-2
                     h1.modal-title You're almost there!
                     .text Thanks for registering! We're excited to see you at #{title}! We just need to know a few more things about you to complete your registration.
@@ -182,4 +183,4 @@ html
         script(type="text/javascript" src="/scripts/jquery.typewatch.js")
         script(type="text/javascript" src="/scripts/jquery.payment.js")
         script(type="text/javascript" src="/scripts/main.js" async)
-        <script>var PILOT_EVENT_ID = "#{event_id}";</script>
+        <script>var PILOT_EVENT_ID = "#{event_id}";var PILOT_EVENT_PRICE=#{price};</script>
