@@ -3,19 +3,21 @@ city: East Palo Alto
 event_id: 5441cd51f230170007f354c3
 price: 20.00
 date:
-    display: November 14-15
+    display: November 15
 location:
     name: Streetcode Academy
 sponsor_doc: /sponsorship.pdf
-hours_long: 24
+hours_long: 12
 schedule:
-    8:30am: Doors Open
-    9:30am: Check-in Closes; Kickoff ceremony
-    12:00pm: Lunch
-    3:00pm: Afternoon snack
-    6:00pm: Dinner
-    7:00pm: Project work ends, judging begins
-    8:00pm: Closing ceremony & awards
+    8:30am: Doors Open;
+    9:00am: Check-in Closes; Kickoff ceremony
+    9:30am: Brainstorming; Design Thinking Workshop
+    10:30am: iOS, Android, WebDev Workshops
+    1:00pm: Lunch
+    7:00pm: Project work ends, Pitch Practice begins
+    7:30pm: Dinner
+    8:00pm: Judging begins
+    8:30pm: Closing ceremony & awards
     9:00pm: End of PilotEPA
     9:30pm: All attendees must be signed out
 analytics: UA-43652846-3
