@@ -98,7 +98,8 @@ html
 
             li
                 h6 Where
-                p= location.name
+                a(href="#{google_maps}", target="_blank") 
+                    p= location.name
 
             li
                 h6 Cost
