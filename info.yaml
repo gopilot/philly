@@ -5,16 +5,16 @@ price: 20.00
 date:
     display: January 24
 location:
-    name: TBA
+    name: UMiami
 sponsor_doc: /sponsorship.pdf
 hours_long: 12
 schedule:
     8:30am: Doors Open;
     9:00am: Check-in Closes; Kickoff ceremony
-    9:30am: Brainstorming; Design Thinking Workshop
-    10:30am: iOS, Android, WebDev Workshops
+    9:30am: Brainstorming; Design Thinking workshop
+    10:30am: iOS, Android, WebDev workshops
     1:00pm: Lunch
-    7:00pm: Project work ends, Pitch Practice begins
+    7:00pm: Project work ends, Pitch practice begins
     7:30pm: Dinner
     8:00pm: Judging begins
     8:30pm: Closing ceremony & awards
@@ -24,4 +24,4 @@ analytics: UA-43652846-3
 facebook_event: https://www.facebook.com/events/855938477780083
 share_url: http://miami.gopilot.org/
 tweet_text: "I'm going to #PilotMiami on November 15! You should join me: "
-google_maps: /
+google_maps: https://www.google.com/maps/place/University+of+Miami,+1320+S+Dixie+Hwy,+Coral+Gables,+FL+33124
