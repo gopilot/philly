@@ -1,13 +1,13 @@
-title: PilotMiami
-city: Miami
-event_id: 5441cd51f230170007f354c3
+title: PilotPhilly
+city: Philadelphia
+event_id: 544eebe0f92f0c00079ead20
 price: 20.00
 date:
-    display: January 24
+    display: January 30-31
 location:
-    name: UMiami
+    name: UPenn
 sponsor_doc: /sponsorship.pdf
-hours_long: 12
+hours_long: 24
 schedule:
     8:30am: Doors Open;
     9:00am: Check-in Closes; Kickoff ceremony
@@ -22,6 +22,6 @@ schedule:
     9:30pm: All attendees must be signed out
 analytics: UA-43652846-3
 facebook_event: https://www.facebook.com/events/855938477780083
-share_url: http://miami.gopilot.org/
-tweet_text: "I'm going to #PilotMiami on November 15! You should join me: "
-google_maps: https://www.google.com/maps/place/University+of+Miami,+1320+S+Dixie+Hwy,+Coral+Gables,+FL+33124
+share_url: http://philly.gopilot.org/
+tweet_text: "I'm going to #PilotPhilly on January 30-31! You should join me: "
+google_maps: https://www.google.com/maps/place/University+of+Pennsylvania
