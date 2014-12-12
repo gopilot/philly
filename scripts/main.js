@@ -1,3 +1,7 @@
+if(location.hostname !== 'philly.gopilot.org'){
+	window.location = 'https://philly.gopilot.org';
+}
+
 jQuery(function($){
 
 	/********************************************/
